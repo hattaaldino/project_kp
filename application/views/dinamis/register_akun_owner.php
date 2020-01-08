@@ -15,7 +15,7 @@
  
     <style>
     .container {
-  max-width: 960px;
+  max-width: 500px;
 }
 .lh-condensed { line-height: 1.25; }
     </style>
@@ -27,10 +27,9 @@
   <img class="mb-4" src="<?php echo base_url();?>user_guide/_images/logo_main.png" height="100" width="300">
     <h2>Daftar Akun Owner</h2>
     </div>
-      <h4 class="mb-3">Nama Perusahaan</h4>
       <form class="needs-validation" novalidate>
         <div class="mb-3">
-          <label for="username">Nama</label>
+          <label for="username">Nama Perusahaan</label>
           <div class="input-group">
             <input type="text" class="form-control" id="username" placeholder="Nama" required>
             <div class="invalid-feedback" style="width: 100%;">
@@ -56,17 +55,15 @@
         </div>
 
         <div class="mb-3">
-          <label >Passowrd</label>
+          <label >Password</label>
           <label for="inputPassword" class="sr-only">Password</label>
           <input type="password" id="inputPassword" class="form-control" placeholder="Password" required >
           <div class="invalid-feedback">
             Masukan Password anda
           </div>
         </div>
-
-        
         <hr class="mb-4">
-        <a class="btn btn-primary btn-lg btn-block" href="<?php echo base_url('contractor/index'); ?>">Continue to checkout</a>
+        <a class="btn btn-primary btn-lg btn-block" href="<?php echo base_url('contractor/index'); ?>">Daftar</a>
       </form>
     </div>
 
