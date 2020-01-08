@@ -1,0 +1,57 @@
+@font-face {
+    font-family: palaquin_bold;
+    src: url(fonts/palaquin-bold.ttf);
+}
+@font-face {
+    font-family: palaquin_semibold;
+    src: url(fonts/palaquin-semibold.ttf);
+}
+@font-face {
+    font-family: palaquin_medium;
+    src: url(fonts/palaquin-medium.ttf);
+}
+@font-face {
+    font-family: palaquin_reguler;
+    src: url(fonts/palaquin-reguler.ttf);
+}
+@font-face {
+    font-family: palaquin_light;
+    src: url(fonts/palaquin-light.ttf);
+}
+@font-face {
+    font-family: palaquin_extralight;
+    src: url(fonts/palaquin-extralight.ttf);
+}
+@font-face {
+    font-family: palaquin_thin;
+    src: url(fonts/palaquin-thin.ttf);
+}
+p {
+    font-family: palaquin_reguler;
+}
+li{
+    font-family: palaquin_reguler;
+}
+h1{
+	font-family: palaquin_bold;
+}
+
+a{
+	font-family: palaquin_reguler;
+}
+
+.light{
+	font-family: palaquin_light;
+}
+.semibold{
+	font-family: palaquin_semibold;
+}
+.medium{
+	font-family: palaquin_medium;
+}
+.extralight{
+	font-family: palaquin_extralight;
+}
+.thin{
+	font-family: palaquin_thin;
+}
