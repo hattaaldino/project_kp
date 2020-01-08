@@ -32,7 +32,10 @@ class contractor extends CI_Controller {
 
 	public function dashboard_login()
 	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar');
 		$this->load->view('dinamis/dashboard');
+		$this->load->view('static/footer');
 	}
 
 	// public function index()
