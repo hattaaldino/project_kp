@@ -24,12 +24,12 @@ class loadview extends CI_Controller {
     }
 	public function regis_owner()
 	{
-		$this->load->view('dinamis/register_akun_owner');
+		$this->load->view('register/register_akun_owner');
 	}
 
 	public function regis_kontraktor()
 	{
-		$this->load->view('dinamis/register_akun_kontraktor');
+		$this->load->view('register/register_akun_kontraktor');
 	}
 
 	public function logout()

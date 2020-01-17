@@ -30,22 +30,60 @@ class contractor extends CI_Controller {
 		$this->load->view('login_utama');
 	}
 
-	public function dashboard_login()
+	public function dashboard_owner()
 	{
 		$this->load->view('static/header');
-		$this->load->view('static/sidebar');
-		$this->load->view('dinamis/dashboard');
+		$this->load->view('static/sidebar_owner');
+		$this->load->view('dinamis/owner/dashboard');
 		$this->load->view('static/footer');
 	}
 
-	// public function index()
-	// {
-	// 	$this->load->view('dinamis/register_akun_kontraktor');
-	// }
+	public function dashboard_profil_owner()
+	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar_owner');
+		$this->load->view('dinamis/owner/profil');
+		$this->load->view('static/footer');
+	}
 
-	// public function index()
-	// {
-	// 	$this->load->view('dinamis/register_akun_owner');
-	// }
+	public function dashboard_kontraktor()
+	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar_kontraktor');
+		$this->load->view('dinamis/kontraktor/dashboard');
+		$this->load->view('static/footer');
+	}
+
+	public function dashboard_profil_kontraktor()
+	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar_kontraktor');
+		$this->load->view('dinamis/kontraktor/profil');
+		$this->load->view('static/footer');
+	}
+
+	public function dashboard_data_proyek_kontraktor()
+	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar_kontraktor');
+		$this->load->view('dinamis/kontraktor/data_proyek');
+		$this->load->view('static/footer');
+	}
+
+	public function dashboard_pengawas()
+	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar_pengawas');
+		$this->load->view('dinamis/pengawas/dashboard');
+		$this->load->view('static/footer');
+	}
+
+	public function dashboard_profil_pengawas()
+	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar_pengawas');
+		$this->load->view('dinamis/pengawas/profil');
+		$this->load->view('static/footer');
+	}
 
 }
