@@ -18,6 +18,7 @@ class contractor extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	
 	// public function index()
 	// {
 	// 	$this->load->view('static/header');
@@ -25,36 +26,56 @@ class contractor extends CI_Controller {
 	// 	$this->load->view('static/footer');
 	// }
 
+	public function __construct(){
+        parent::__construct();
+    }		
+
 	public function index()
 	{
-		$this->load->view('login_utama');
+		$this->load->view('dinamis/login_utama');
 	}
 
-	public function dashboard_owner()
+	public function regis_owner()
+	{
+		$this->load->view('dinamis/owner/register_akun_owner');
+		
+	}
+
+	public function regis_kontraktor()
+	{
+		$this->load->view('dinamis/contractor/register_akun_kontraktor');
+	}
+	
+	public function regis_pengawas()
+	{
+		$this->load->view('dinamis/contractor/register_akun_pengawas');
+	}
+
+	public function owner_board()
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_owner');
-		$this->load->view('dinamis/owner/dashboard');
+		$this->load->view('dinamis/dashboard');
 		$this->load->view('static/footer');
 	}
 
-	public function dashboard_profil_owner()
+	public function owner_profil()
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_owner');
 		$this->load->view('dinamis/owner/profil');
 		$this->load->view('static/footer');
 	}
-
-	public function dashboard_kontraktor()
+	
+	public function kontraktor_board()
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_kontraktor');
-		$this->load->view('dinamis/kontraktor/dashboard');
+		$this->load->view('dinamis/dashboard');
 		$this->load->view('static/footer');
 	}
 
-	public function dashboard_profil_kontraktor()
+	public function kontraktor_profil()
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_kontraktor');
@@ -62,7 +83,7 @@ class contractor extends CI_Controller {
 		$this->load->view('static/footer');
 	}
 
-	public function dashboard_data_proyek_kontraktor()
+	public function kontraktor_data_proyek()
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_kontraktor');
@@ -70,15 +91,15 @@ class contractor extends CI_Controller {
 		$this->load->view('static/footer');
 	}
 
-	public function dashboard_pengawas()
+	public function pengawas_board()
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_pengawas');
-		$this->load->view('dinamis/pengawas/dashboard');
+		$this->load->view('dinamis/dashboard');
 		$this->load->view('static/footer');
 	}
 
-	public function dashboard_profil_pengawas()
+	public function pengawas_profil()
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_pengawas');

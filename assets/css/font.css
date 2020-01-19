@@ -32,12 +32,16 @@ p {
 li{
     font-family: palaquin_reguler;
 }
-h1{
+h1 h2 h3 h4 h5 h6{
 	font-family: palaquin_bold;
 }
 
 a{
 	font-family: palaquin_reguler;
+}
+
+div{
+    font-family: palaquin_reguler;
 }
 
 .light{
