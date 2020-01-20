@@ -55,7 +55,15 @@ class contractor extends CI_Controller {
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_owner');
-		$this->load->view('dinamis/dashboard');
+		$this->load->view('dinamis/owner/dashboard');
+		$this->load->view('static/footer');
+	}
+
+	public function owner_monitoring()
+	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar_owner');
+		$this->load->view('dinamis/owner/proyek_monitoring');
 		$this->load->view('static/footer');
 	}
 
@@ -71,7 +79,7 @@ class contractor extends CI_Controller {
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_kontraktor');
-		$this->load->view('dinamis/dashboard');
+		$this->load->view('dinamis/contractor/dashboard');
 		$this->load->view('static/footer');
 	}
 
@@ -79,7 +87,7 @@ class contractor extends CI_Controller {
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_kontraktor');
-		$this->load->view('dinamis/kontraktor/profil');
+		$this->load->view('dinamis/contraktor/profil');
 		$this->load->view('static/footer');
 	}
 
@@ -87,7 +95,15 @@ class contractor extends CI_Controller {
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_kontraktor');
-		$this->load->view('dinamis/kontraktor/data_proyek');
+		$this->load->view('dinamis/contraktor/data_proyek');
+		$this->load->view('static/footer');
+	}
+
+	public function kontraktor_submit_proyek()
+	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar_kontraktor');
+		$this->load->view('dinamis/contraktor/submit_data_proyek');
 		$this->load->view('static/footer');
 	}
 
@@ -95,7 +111,7 @@ class contractor extends CI_Controller {
 	{
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_pengawas');
-		$this->load->view('dinamis/dashboard');
+		$this->load->view('dinamis/pengawas/dashboard');
 		$this->load->view('static/footer');
 	}
 
@@ -104,6 +120,14 @@ class contractor extends CI_Controller {
 		$this->load->view('static/header');
 		$this->load->view('static/sidebar_pengawas');
 		$this->load->view('dinamis/pengawas/profil');
+		$this->load->view('static/footer');
+	}
+
+	public function pengawas_verifikasi_proyek()
+	{
+		$this->load->view('static/header');
+		$this->load->view('static/sidebar_pengawas');
+		$this->load->view('dinamis/pengawas/verifikasi_data_proyek');
 		$this->load->view('static/footer');
 	}
 
