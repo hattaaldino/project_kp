@@ -18,13 +18,6 @@ class contractor extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	
-	// public function index()
-	// {
-	// 	$this->load->view('static/header');
-	// 	$this->load->view('dinamis/dashboard');
-	// 	$this->load->view('static/footer');
-	// }
 
 	public function __construct(){
         parent::__construct();
@@ -32,103 +25,213 @@ class contractor extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('dinamis/login_utama');
+		$this->load->view('page/login_utama');
+	}
+
+	public function logout()
+	{
+		session_unset($_SESSION['user']);
+		$this->index();
 	}
 
 	public function regis_owner()
 	{
-		$this->load->view('dinamis/owner/register_akun_owner');
-		
+		$this->load->view('page/owner/register_akun_owner');
 	}
 
 	public function regis_kontraktor()
 	{
-		$this->load->view('dinamis/contractor/register_akun_kontraktor');
+		$this->load->view('page/contractor/register_akun_kontraktor');
 	}
 	
 	public function regis_pengawas()
-	{
-		$this->load->view('dinamis/contractor/register_akun_pengawas');
+	{	
+		if(isset($_SESSION['user'])){
+			$this->load->view('template/header');
+			$this->load->view('template/sidebar');
+			$this->load->view('template/popup_form');
+			$this->load->view('template/breadcrumbs');
+			$this->load->view('page/pengawas/register_akun_pengawas');
+		} else {
+			$this->index();
+		}
 	}
 
 	public function owner_board()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_owner');
-		$this->load->view('dinamis/owner/dashboard');
-		$this->load->view('static/footer');
+		if(isset($_SESSION['user'])){
+			$data['proyek'] = $_POST['proyek'];
+			$data['pengawas'] = $_POST['pengawas'];
+			$data['kontraktor'] = $_POST['kontraktor'];
+			$this->load->view('template/header');
+			$this->load->view('template/sidebar');
+			$this->load->view('template/popup_form');
+			$this->load->view('template/breadcrumbs');	
+			$this->load->view('page/owner/dashboard', $data);
+		} else {
+			$this->index();
+		}
 	}
 
 	public function owner_monitoring()
-	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_owner');
-		$this->load->view('dinamis/owner/proyek_monitoring');
-		$this->load->view('static/footer');
+	{	
+		if(isset($_SESSION['user'])){
+			$data['proyek'] = $_POST['proyek'];
+			$this->load->view('template/header');
+			$this->load->view('template/sidebar');
+			$this->load->view('template/popup_form');
+			$this->load->view('template/breadcrumbs');
+			$this->load->view('page/owner/proyek_monitoring', $data);
+		} else {
+			$this->index();
+		}
 	}
 
 	public function owner_profil()
+	{	
+		$data['user'] = $_SESSION['user'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/owner/profil', $data);
+	}
+
+	public function owner_edit_profil()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_owner');
-		$this->load->view('dinamis/owner/profil');
-		$this->load->view('static/footer');
+		$data['user'] = $_SESSION['user'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/owner/edit_profil', $data);
+	}
+
+	public function owner_edit_pengawas()
+	{
+		$data['pengawas'] = $_POST['pengawas'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/owner/edit_pengawas', $data);
+	}
+
+	public function owner_edit_proyek()
+	{
+		if(isset($_SESSION['user'])){
+			$data['proyek'] = $_POST['proyek'];
+			$data['pengawas'] = $_POST['pengawas'];
+			$data['kontraktor'] = $_POST['kontraktor'];
+			$this->load->view('template/header');
+			$this->load->view('template/sidebar');
+			$this->load->view('template/popup_form');
+			$this->load->view('template/breadcrumbs');
+			$this->load->view('page/owner/edit_proyek', $data);
+		} else {
+			$this->index();
+		}
 	}
 	
 	public function kontraktor_board()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_kontraktor');
-		$this->load->view('dinamis/contractor/dashboard');
-		$this->load->view('static/footer');
+		$data['proyek'] = $_POST['proyek'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/contractor/dashboard', $data);
 	}
 
 	public function kontraktor_profil()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_kontraktor');
-		$this->load->view('dinamis/contraktor/profil');
-		$this->load->view('static/footer');
+		$data['user'] = $_SESSION['user'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/contractor/profil', $data);
+	}
+
+	public function kontraktor_edit_profil()
+	{
+		$data['user'] = $_SESSION['user'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/contractor/edit_profil', $data);
 	}
 
 	public function kontraktor_data_proyek()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_kontraktor');
-		$this->load->view('dinamis/contraktor/data_proyek');
-		$this->load->view('static/footer');
+		$data['proyek'] = $_POST['proyek'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/contractor/data_proyek', $data);
 	}
 
 	public function kontraktor_submit_proyek()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_kontraktor');
-		$this->load->view('dinamis/contraktor/submit_data_proyek');
-		$this->load->view('static/footer');
+		$data['proyek'] = $_POST['proyek'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/contractor/submit_data_proyek',$data);
 	}
 
 	public function pengawas_board()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_pengawas');
-		$this->load->view('dinamis/pengawas/dashboard');
-		$this->load->view('static/footer');
+		$data['proyek'] = $_POST['proyek'];
+		$data['kontraktor'] = $_POST['kontraktor'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/pengawas/dashboard', $data);
 	}
 
 	public function pengawas_profil()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_pengawas');
-		$this->load->view('dinamis/pengawas/profil');
-		$this->load->view('static/footer');
+		$data['user'] = $_SESSION['user'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/pengawas/profil', $data);
+	}
+
+	public function pengawas_edit_profil()
+	{
+		$data['user'] = $_SESSION['user'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/pengawas/edit_profil', $data);
 	}
 
 	public function pengawas_verifikasi_proyek()
 	{
-		$this->load->view('static/header');
-		$this->load->view('static/sidebar_pengawas');
-		$this->load->view('dinamis/pengawas/verifikasi_data_proyek');
-		$this->load->view('static/footer');
+		$data['proyek'] = $_POST['proyek'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/pengawas/verifikasi_data_proyek', $data);
+	}
+
+	public function pengawas_lihat_laporan()
+	{
+		$data['proyek'] = $_POST['proyek'];
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('template/popup_form');
+        $this->load->view('template/breadcrumbs');
+		$this->load->view('page/pengawas/laporan_proyek', $data);
 	}
 
 }

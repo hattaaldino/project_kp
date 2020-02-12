@@ -52,3 +52,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'contractor';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['login'] = 'contractor/logout';
+//route owner
+$route['owner/signup'] = 'contractor/regis_owner';
+$route['owner/dashboard'] = 'contractor/owner_board';
+$route['owner/dashboard/proyek'] = 'contractor/owner_monitoring';
+$route['owner/dashboard/edit-proyek'] = 'contractor/owner_edit_proyek';
+$route['owner/profil'] = 'contractor/owner_profil';
+$route['owner/profil/edit-profil'] = 'contractor/owner_edit_profil';
+$route['owner/dashboard/buat-pengawas'] = 'contractor/regis_pengawas';
+$route['owner/dashboard/edit-pengawas'] = 'contractor/owner_edit_pengawas';
+//route kontraktor
+$route['kontraktor/signup'] = 'contractor/regis_kontraktor';
+$route['kontraktor/dashboard'] = 'contractor/kontraktor_board';
+$route['kontraktor/profil'] = 'contractor/kontraktor_profil';
+$route['kontraktor/profil/edit-profil'] = 'contractor/kontraktor_edit_profil';
+$route['kontraktor/dashboard/proyek'] = 'contractor/kontraktor_data_proyek';
+$route['kontraktor/dashboard/update-proyek'] = 'contractor/kontraktor_submit_proyek';
+//route pengawas
+$route['pengawas/dashboard'] = 'contractor/pengawas_board';
+$route['pengawas/dashboard/verifikasi-proyek'] = 'contractor/pengawas_verifikasi_proyek';
+$route['pengawas/dashboard/laporan-proyek'] = 'contractor/pengawas_lihat_laporan';
+$route['pengawas/profil'] = 'contractor/pengawas_profil';
+$route['pengawas/profil/edit-profil'] = 'contractor/pengawas_edit_profil';

@@ -11,11 +11,5 @@
         public function userIn(){
             $_SESSION['user'] = $_POST;
         }
-
-        public function userOut(){
-            session_unset($_SESSION['user']);
-        }
-
-        public function project
     }
 ?>
