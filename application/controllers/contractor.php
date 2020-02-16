@@ -60,9 +60,9 @@ class contractor extends CI_Controller {
 	public function owner_board()
 	{
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = $_POST['proyek'];
-			$data['pengawas'] = $_POST['pengawas'];
-			$data['kontraktor'] = $_POST['kontraktor'];
+			$data['proyek'] = json_decode($_POST['proyek'], true);
+			$data['pengawas'] = json_decode($_POST['pengawas'], true);
+			$data['kontraktor'] = json_decode($_POST['kontraktor'], true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -76,7 +76,7 @@ class contractor extends CI_Controller {
 	public function owner_monitoring()
 	{	
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = $_POST['proyek'];
+			$data['proyek'] = json_decode($_POST['proyek'], true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -109,7 +109,7 @@ class contractor extends CI_Controller {
 
 	public function owner_edit_pengawas()
 	{
-		$data['pengawas'] = $_POST['pengawas'];
+		$data['pengawas'] = json_decode($_POST['pengawas'], true);
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('template/popup_form');
@@ -120,9 +120,9 @@ class contractor extends CI_Controller {
 	public function owner_edit_proyek()
 	{
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = $_POST['proyek'];
-			$data['pengawas'] = $_POST['pengawas'];
-			$data['kontraktor'] = $_POST['kontraktor'];
+			$data['proyek'] = json_decode($_POST['proyek'], true);
+			$data['pengawas'] = json_decode($_POST['pengawas'], true);
+			$data['kontraktor'] = json_decode($_POST['kontraktor'], true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -135,7 +135,7 @@ class contractor extends CI_Controller {
 	
 	public function kontraktor_board()
 	{
-		$data['proyek'] = $_POST['proyek'];
+		$data['proyek'] = json_decode($_POST['proyek'], true);
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('template/popup_form');
@@ -165,7 +165,7 @@ class contractor extends CI_Controller {
 
 	public function kontraktor_data_proyek()
 	{
-		$data['proyek'] = $_POST['proyek'];
+		$data['proyek'] = json_decode($_POST['proyek'], true);
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('template/popup_form');
@@ -175,7 +175,7 @@ class contractor extends CI_Controller {
 
 	public function kontraktor_submit_proyek()
 	{
-		$data['proyek'] = $_POST['proyek'];
+		$data['proyek'] = json_decode($_POST['proyek'], true);
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('template/popup_form');
@@ -185,8 +185,8 @@ class contractor extends CI_Controller {
 
 	public function pengawas_board()
 	{
-		$data['proyek'] = $_POST['proyek'];
-		$data['kontraktor'] = $_POST['kontraktor'];
+		$data['proyek'] = json_decode($_POST['proyek'], true);
+		$data['kontraktor'] = json_decode($_POST['kontraktor'], true);
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('template/popup_form');
@@ -214,19 +214,9 @@ class contractor extends CI_Controller {
 		$this->load->view('page/pengawas/edit_profil', $data);
 	}
 
-	public function pengawas_verifikasi_proyek()
-	{
-		$data['proyek'] = $_POST['proyek'];
-		$this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('template/popup_form');
-        $this->load->view('template/breadcrumbs');
-		$this->load->view('page/pengawas/verifikasi_data_proyek', $data);
-	}
-
 	public function pengawas_lihat_laporan()
 	{
-		$data['proyek'] = $_POST['proyek'];
+		$data['proyek'] = json_decode($_POST['proyek'], true);
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('template/popup_form');

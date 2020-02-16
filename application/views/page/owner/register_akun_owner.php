@@ -200,11 +200,11 @@
                     processData: false,
                     contentType: false,
                     success: function(response){
-                        var user = response.data[0];
+                        var user = JSON.parse(response.data[0]);
                         $.ajax({
                             url: "<?php echo base_url('user_session/userIn'); ?>",
                             method : 'POST',
-                            data : user,
+                            data : {user : response.data[0]},
                             success: function(){
                               $.ajax({
                                 url: " ",
@@ -212,26 +212,24 @@
                                 data : {id : user.id},
                                 success: function(responseProyek)
                                 {
-                                    var proyek = responseProyek.data[0];
+                                    var proyek = responseProyek.data;
                                     $.ajax({
                                         url: "<?php echo base_url('contractor/owner_board'); ?>",
                                         method : 'POST',
-                                        data : proyek
+                                        data : {proyek : proyek}
                                     });
                                 }
                               });
 
                               $.ajax({
                                   url: " ",
-                                  method : 'POST',
-                                  data : {id : user.id},
                                   success: function(responseKontraktor)
                                   {
-                                      var kontraktor = responseKontraktor.data[0];
+                                      var kontraktor = responseKontraktor.data;
                                       $.ajax({
                                           url: "<?php echo base_url('contractor/owner_board'); ?>",
                                           method : 'POST',
-                                          data : kontraktor
+                                          data : {kontraktor : kontraktor}
                                       });
                                   }
                               });
@@ -242,11 +240,11 @@
                                   data : {id : user.id},
                                   success: function(responsePengawas)
                                   {
-                                      var pengawas = responsePengawas.data[0];
+                                      var pengawas = responsePengawas.data;
                                       $.ajax({
                                           url: "<?php echo base_url('contractor/owner_board'); ?>",
                                           method : 'POST',
-                                          data : pengawas
+                                          data : {pengawas : pengawas}
                                       });
                                   }
                               });

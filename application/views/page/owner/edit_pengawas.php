@@ -96,7 +96,7 @@
 <script>
   var pengawas;
   <?php if(isset($pengawas)): ?>
-    pengawas = <?php echo $pengawas; ?>;
+    pengawas = JSON.parse('<?php echo json_encode($pengawas); ?>');
   <?php else: ?>
     pengawas = {
         id : '',
@@ -212,11 +212,11 @@
             profile : pengawas.profile
           },
           success : function(responsePengawas){
-            var pengawasBaru = responsePengawas.data[0];
+            var setPengawas = responsePengawas.data;
             $.ajax({
-              url: "<?php echo base_url('user_session/userIn'); ?>",
+              url: "<?php echo base_url('contractor/owner_board'); ?>",
               method : 'POST',
-              data : pengawasBaru
+              data : {pengawas : setPengawas}
             });
           }
         });

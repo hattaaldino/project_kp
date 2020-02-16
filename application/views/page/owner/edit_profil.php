@@ -96,7 +96,7 @@
 <script>
   var user;
   <?php if(isset($user)): ?>
-    user = <?php echo $user; ?>;
+    user = JSON.parse('<?php echo json_encode($user); ?>');
   <?php else: ?>
     user = {
         id : '',
@@ -116,7 +116,7 @@
       $('label#edit-foto-profil').text(file.name);
     });
     $('input.telepon').on('change', function(){
-      const telpVerification = /\+?[0-9]{5,6}[-\s]?[0-9]{5}[-\s]?[0-9]{5,6}/i;
+      const telpVerification = /\+?[0-9]{4,5}[-\s]?[0-9]{4}[-\s]?[0-9]{4,5}/i;
       var nomor = $('input.telepon').val();
       if(telpVerification.test(nomor)){
         $('.telp-alert').fadeIn();
@@ -216,7 +216,7 @@
             $.ajax({
               url: "<?php echo base_url('user_session/userIn'); ?>",
               method : 'POST',
-              data : userBaru
+              data : {user : userBaru}
             });
           }
         });

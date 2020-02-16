@@ -15,7 +15,17 @@
                   <?php foreach ($proyek as $listproyek): ?>
                     <tr data-id='<?php echo $listproyek['id']; ?>'>
                     <td class='nama-proyek-pengawas' data-id='<?php echo $listproyek['id']; ?>'><?php echo $listproyek['nama']; ?></td>
-                    <td class='nama-kontraktor-pengawas' data-id='<?php echo $listproyek['id']; ?>'><?php echo $listproyek['kontraktor']; ?></td>; 
+                    <td class='nama-kontraktor-pengawas' data-id='<?php echo $listproyek['id']; ?>'>
+                    <?php
+                      if(isset($kontraktor)){
+                        foreach($kontraktor as $kontraktor){
+                          if($kontraktor['id'] == $listproyek['id_kontraktor']){
+                            echo $kontraktor['nama'];
+                          }
+                        }
+                      }
+                    ?>
+                    </td>
                     <td>
                     <button class='btn btn-sm text-muted detail-proyek-pengawas-btn' data-id='<?php echo $listproyek['id']; ?>'>Lihat Detail</button>
                     </td>
@@ -31,6 +41,25 @@
 </div>
 <script>
   $('#table-proyek-pengawas').DataTable();
+  $('button.detail-proyek-pengawas-btn').on('click', function(){
+    var id = $(this).data('id');
+    $.ajax({
+      url : "",
+      method : 'POST',
+      data : {id : id},
+      success : function(responseProyek){
+        var proyek = responseProyek.data[0];
+        $.ajax({
+          url : "<?php echo base_url('contractor/pengawas_lihat_laporan');?>",
+          method : 'POST',
+          data : {proyek : proyek},
+          success : function(){
+            window.location.href = "<?php echo base_url('pengawas/dashboard/laporan-proyek'); ?>";
+          }
+        })
+      }
+    });
+  });
 </script>
 </body>
 </html>

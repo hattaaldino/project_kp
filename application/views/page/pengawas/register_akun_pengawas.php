@@ -106,6 +106,7 @@
         });
 
         $('#daftarbtn').on('click', function(){
+            var id_owner = JSON.parse('<?php echo json_encode($_SESSION['user']['id']); ?>');
             var nama = $('#nama').val();
             var username = $('#username').val();
             var password = $('#inputPassword').val();
@@ -142,34 +143,35 @@
             }
             
             else{
-                let form_data = new FormData();
-                form_data.append('nama', nama);
-                form_data.append('username', username);
-                form_data.append('password', password);
-                form_data.append('role', role);
-                form_data.append('alamat', alamat);
-                form_data.append('telepon', telepon);
-                form_data.append('profile', profile);
-                
-                $.ajax({
-                    url: " ",
-                    method: 'POST',
-                    data: form_data,
-                    processData: false,
-                    contentType: false,
-                    success: function(response){
-                        var pengawas = response.data[0];
-                        $.ajax({
-                            url: "<?php echo base_url('contractor/owner_board'); ?>",
-                            method : 'POST',
-                            data : pengawas
-                            }
-                        })
-                    },
-                    error: function(){
-                        $('#alert-username').fadeIn();
-                    }
-                });
+              
+              let form_data = new FormData();
+              form_data.append('id_owner', id_owner);
+              form_data.append('nama', nama);
+              form_data.append('username', username);
+              form_data.append('password', password);
+              form_data.append('role', role);
+              form_data.append('alamat', alamat);
+              form_data.append('telepon', telepon);
+              form_data.append('profile', profile);
+              
+              $.ajax({
+                  url: " ",
+                  method: 'POST',
+                  data: form_data,
+                  processData: false,
+                  contentType: false,
+                  success: function(response){
+                      var pengawas = response.data;
+                      $.ajax({
+                          url: "<?php echo base_url('contractor/owner_board'); ?>",
+                          method : 'POST',
+                          data : {pengawas : pengawas}
+                      });
+                  },
+                  error: function(){
+                      $('#alert-username').fadeIn();
+                  }
+              });
             }
         });
       });

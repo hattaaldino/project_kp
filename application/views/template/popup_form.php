@@ -55,8 +55,10 @@
                 <label for="inputPengawasProject">Pengawas Project</label>
                 <select class="custom-select" id="inputPengawasProject" title="Pilih Pengawas..">
                   <?php 
-                  foreach($pengawas as $listpengawas) {
-                    echo"<option value='"+$listpengawas['id']+"'>"+$listpengawas['nama']+"</option";
+                  if(isset($pengawas)){
+                    foreach($pengawas as $listpengawas) {
+                      echo"<option value='",$listpengawas['id'],"'>",$listpengawas['nama'],"</option";
+                    }
                   }
                   ?>
                 </select>
@@ -65,8 +67,10 @@
                 <label for="inputKontraktorProject">Kontraktor Project</label>
                 <select class="custom-select" id="inputKontraktorProject" title="Pilih Kontraktor..">
                   <?php 
-                  foreach($kontraktor as $listkontraktor) {
-                    echo"<option value='"+$listkontraktor['id']+"'>"+$listkontraktor['nama']+"</option";
+                  if(isset($kontraktor)){
+                    foreach($kontraktor as $listkontraktor) {
+                      echo"<option value='",$listkontraktor['id'],"'>",$listkontraktor['nama'],"</option";
+                    }
                   }
                   ?>
                 </select>
@@ -407,8 +411,10 @@
             <label for="editPengawasProyek">Pengawas Proyek</label>
             <select class="custom-select" id="editPengawasProyek" title="Pilih Pengawas..">
               <?php 
-              foreach($pengawas as $listpengawas) {
-                echo"<option value='"+$listpengawas['id']+"'>"+$listpengawas['nama']+"</option";
+              if(isset($pengawas)){
+                foreach($pengawas as $listpengawas) {
+                  echo"<option value='",$listpengawas['id'],"'>",$listpengawas['nama'],"</option";
+                }
               }
               ?>
             </select>

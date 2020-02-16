@@ -71,7 +71,6 @@ $route['kontraktor/dashboard/proyek'] = 'contractor/kontraktor_data_proyek';
 $route['kontraktor/dashboard/update-proyek'] = 'contractor/kontraktor_submit_proyek';
 //route pengawas
 $route['pengawas/dashboard'] = 'contractor/pengawas_board';
-$route['pengawas/dashboard/verifikasi-proyek'] = 'contractor/pengawas_verifikasi_proyek';
 $route['pengawas/dashboard/laporan-proyek'] = 'contractor/pengawas_lihat_laporan';
 $route['pengawas/profil'] = 'contractor/pengawas_profil';
 $route['pengawas/profil/edit-profil'] = 'contractor/pengawas_edit_profil';

@@ -9,7 +9,10 @@
         }	
 
         public function userIn(){
-            $_SESSION['user'] = $_POST;
+            if(isset($_POST['user'])){
+                $user = $_POST['user'];
+                $_SESSION['user'] = json_decode($user, true);
+            }
         }
     }
 ?>

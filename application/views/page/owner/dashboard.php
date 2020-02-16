@@ -29,7 +29,18 @@
                   <button class='btn btn-sm btn-outline-secondary edit-proyek-btn' data-id='<?php echo $listproyek['id']; ?>'>Edit Proyek</button>
                   </td>
                   <td>
-                  <span class='nama-kontraktor' data-id='<?php echo $listproyek['id']; ?>'><?php echo $listproyek['kontraktor']; ?></span>
+                  <span class='nama-kontraktor' data-id='<?php echo $listproyek['id']; ?>'>
+                  <?php
+                    if(isset($kontraktor)){
+                      foreach($kontraktor as $kontraktor){
+                        if($kontraktor['id'] == $listproyek['id_kontraktor']){
+                          echo $kontraktor['nama'];
+                          break;
+                        }
+                      }
+                    }
+                  ?>
+                  </span>
                   <select class='custom-select kontraktor-editor' style='display:none;' data-id='<?php echo $listproyek['id']; ?>'>
                   <?php 
                     if(isset($kontraktor)){
@@ -96,48 +107,48 @@
 <script> 
   $(document).ready(function(){
 
-      $('#table-proyek').DataTable();
+      var tabelProyek = $('#table-proyek').DataTable();
 
-      $('#table-pengawas').DataTable();
+      var tabelPengawas = $('#table-pengawas').DataTable();
 
-      $('.edit-proyek-btn').on('click', function(){
+      $('#table-proyek-body').on('click', '.edit-proyek-btn', function(){
         var id = $(this).attr("data-id");
         $.ajax({
           url:"",
           method:'POST',
           data: {id : id},
           success: function(responseProyek){
-            var proyek = responseProyek.data[0];
+            var proyek = JSON.parse(responseProyek.data[0]);
             $.ajax({
               url: "",
               method: 'POST',
-              data: {id_proyek : proyek.id},
+              data: {id : proyek.id},
               success: function(responseKontraktor){
                 var kontraktor = responseKontraktor.data;
                 $.ajax({
                   url:"<?php echo base_url('contractor/owner_edit_proyek'); ?>",
                   method:'POST',
-                  data: kontraktor
+                  data: {kontraktor : kontraktor}
                 });
               }
             });
             $.ajax({
               url: "",
               method: 'POST',
-              data: {id_proyek : proyek.id},
+              data: {id : proyek.id},
               success: function(responsePengawas){
                 var pengawas = responsePengawas.data;
                 $.ajax({
                   url:"<?php echo base_url('contractor/owner_edit_proyek'); ?>",
                   method:'POST',
-                  data: pengawas
+                  data: {pengawas : pengawas}
                 });
               }
             });
             $.ajax({
               url:"<?php echo base_url('contractor/owner_edit_proyek'); ?>",
               method:'POST',
-              data: proyek,
+              data: {proyek : responseProyek.data[0]},
               success: function(){
                 window.location.href="<?php echo base_url('owner/dashboard/edit-proyek'); ?>";
               }
@@ -146,7 +157,7 @@
         });
       });
 
-      $('.detail-proyek-btn').on('click', function(){
+      $('#table-proyek-body').on('click', '.detail-proyek-btn', function(){
         var id = $(this).attr("data-id");
         $.ajax({
           url:"",
@@ -157,7 +168,7 @@
             $.ajax({
               url:"<?php echo base_url('contractor/owner_monitoring'); ?>",
               method:'POST',
-              data: proyek,
+              data: {proyek : proyek},
               success: function(){
                 window.location.href="<?php echo base_url('owner/dashboard/proyek'); ?>";
               }
@@ -166,25 +177,25 @@
         });
       });
 
-      $('.edit-kontraktor-btn').on('click', function(){
+      $('#table-proyek-body').on('click', '.edit-kontraktor-btn', function(){
         var id = $(this).attr("data-id");
         $('span[data-id="'+id+'"]').hide();
         $('select[data-id="'+id+'"]').fadeIn().focus();
       });
 
-      $('.kontraktor-editor').on('change', function(){
+      $('#table-proyek-body').on('change', '.kontraktor-editor', function(){
         var id = $(this).attr("data-id");
         var gantikontraktor = $(this).val();
         $.ajax({
           url:"",
           method:'POST',
           data: {
-            id_proyek : id,
+            id : id,
             id_kontraktor : gantikontraktor
           },
           success: function(kontraktor){
             $('select[data-id="'+id+'"]').hide();
-            var kontraktor = kontraktor.data[0];
+            var kontraktor = JSON.parse(kontraktor.data[0]);
             var namakontraktor = kontraktor.nama;
             $('span[data-id="'+id+'"]').html(namakontraktor).fadeIn();
           }
@@ -202,7 +213,7 @@
             $.ajax({
               url:"<?php echo base_url('contractor/owner_edit_pengawas'); ?>",
               method:'POST',
-              data: pengawas,
+              data: {pengawas : pengawas},
               success: function(){
                 window.location.href="<?php echo base_url('owner/dashboard/edit-pengawas'); ?>";
               }
@@ -211,7 +222,7 @@
         });
       });
 
-      $('.hapus-proyek-btn').on('click', function(){
+      $('#table-proyek-body').on('click', '.hapus-proyek-btn', function(){
         var id = $(this).attr("data-id");
         $.ajax({
           url:"",

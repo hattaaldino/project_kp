@@ -32,7 +32,7 @@
 <script>
   var proyek;
   <?php if(isset($proyek)): ?>
-    proyek = <?php echo json_encode($proyek); ?>;
+    proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
   <?php else: ?>
     proyek = {
         id : '',
@@ -46,8 +46,10 @@
             volume : '',
             bobot : '', 
             tanggal_selesai : '',
-            status : ''
+            status : null,
+            dokumentasi : ['']
         }],
+        id_owner: '',
         id_pengawas : '',
         id_kontraktor : ''
     };
@@ -62,7 +64,7 @@
     if(proyek['pekerjaan'][0]['id'])
     {
       workdone = (proyek['pekerjaan']).map(data => {
-          if(data.status == "selesai"){
+          if(data.status == 1){
               return data;
           }
       });

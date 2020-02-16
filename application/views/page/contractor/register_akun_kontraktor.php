@@ -199,11 +199,11 @@
                     processData: false,
                     contentType: false,
                     success: function(response){
-                        var user = response.data[0];
+                        var user = JSON.parse(response.data[0]);
                         $.ajax({
                             url: "<?php echo base_url('user_session/userIn'); ?>",
                             method : 'POST',
-                            data : user,
+                            data : {user : response.data[0]},
                             success: function(){
                               $.ajax({
                                 url: " ",
@@ -211,11 +211,11 @@
                                 data : {id : user.id},
                                 success: function(responseProyek)
                                 {
-                                    var proyek = responseProyek.data[0];
+                                    var proyek = responseProyek.data;
                                     $.ajax({
                                         url: "<?php echo base_url('contractor/kontraktor_board'); ?>",
                                         method : 'POST',
-                                        data : proyek
+                                        data : {proyek : proyek}
                                     });
                                 }
                               });

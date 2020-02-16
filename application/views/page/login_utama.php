@@ -66,14 +66,15 @@
             }
 
             $.ajax({
-                url: " ",
+                url: "",
                 method : 'POST',
                 data : data,
                 success: function(response)
                 {
-                    id = response.data[0].id;
-                    nama = response.data[0].nama;
-                    role = response.data[0].role;
+                    var responsejs = JSON.parse(response.data[0]);
+                    id = responsejs.id;
+                    nama = responsejs.nama;
+                    role = responsejs.role;
 
                     var unique_user = false;
 
@@ -88,41 +89,39 @@
                     }
 
                     if(unique_user && valid_user){
-
+                        var user = JSON.stringify(responsejs);
                         if (role == 'owner')
                         {
                             $.ajax({
                                 url: "<?php echo base_url('user_session/userIn'); ?>",
                                 method : 'POST',
-                                data : response.data[0],
+                                data : {user : user},
                                 success: function()
                                 {
                                     $.ajax({
                                         url: " ",
                                         method : 'POST',
-                                        data : {id : response.data[0].id},
+                                        data : {id : id},
                                         success: function(responseProyek)
                                         {
-                                            var proyek = responseProyek.data[0];
+                                            var proyek = responseProyek.data;
                                             $.ajax({
                                                 url: "<?php echo base_url('contractor/owner_board'); ?>",
                                                 method : 'POST',
-                                                data : proyek,
+                                                data : {proyek : proyek}
                                             });
                                         }
                                     });
 
                                     $.ajax({
                                         url: " ",
-                                        method : 'POST',
-                                        data : {id : response.data[0].id},
                                         success: function(responseKontraktor)
                                         {
-                                            var kontraktor = responseKontraktor.data[0];
+                                            var kontraktor = responseKontraktor.data;
                                             $.ajax({
                                                 url: "<?php echo base_url('contractor/owner_board'); ?>",
                                                 method : 'POST',
-                                                data : kontraktor,
+                                                data : {kontraktor : kontraktor}
                                             });
                                         }
                                     });
@@ -130,14 +129,14 @@
                                     $.ajax({
                                         url: " ",
                                         method : 'POST',
-                                        data : {id : response.data[0].id},
+                                        data : {id : id},
                                         success: function(responsePengawas)
                                         {
-                                            var pengawas = responsePengawas.data[0];
+                                            var pengawas = responsePengawas.data;
                                             $.ajax({
                                                 url: "<?php echo base_url('contractor/owner_board'); ?>",
                                                 method : 'POST',
-                                                data : pengawas,
+                                                data : {pengawas : pengawas}
                                             });
                                         }
                                     });
@@ -152,20 +151,20 @@
                             $.ajax({
                             url: "<?php echo base_url('user_session/userIn'); ?>",
                             method : 'POST',
-                            data : response.data[0],
+                            data : {user : user},
                             success: function()
                             {
                                 $.ajax({
                                     url: " ",
                                     method : 'POST',
-                                    data : {id : response.data[0].id},
+                                    data : {id : id},
                                     success: function(responseProyek)
                                     {
-                                        var proyek = responseProyek.data[0];
+                                        var proyek = responseProyek.data;
                                         $.ajax({
                                             url: "<?php echo base_url('contractor/kontraktor_board'); ?>",
                                             method : 'POST',
-                                            data : proyek,
+                                            data : {proyek : proyek}
                                         });
                                     }
                                 });
@@ -180,34 +179,34 @@
                             $.ajax({
                             url: "<?php echo base_url('user_session/userIn'); ?>",
                             method : 'POST',
-                            data : response.data[0],
+                            data : {user : user},
                             success: function()
                             {
                                 $.ajax({
                                     url: " ",
                                     method : 'POST',
-                                    data : {id : response.data[0].id},
+                                    data : {id : id},
                                     success: function(responseProyek)
                                     {
-                                        var proyek = responseProyek.data[0];
+                                        var proyek = responseProyek.data;
                                         $.ajax({
                                             url: "<?php echo base_url('contractor/pengawas_board'); ?>",
                                             method : 'POST',
-                                            data : proyek,
+                                            data : {proyek : proyek}
                                         });
                                     }
                                 });
                                 $.ajax({
                                     url: " ",
                                     method : 'POST',
-                                    data : {id : response.data[0].id},
+                                    data : {id : id},
                                     success: function(responseKontraktor)
                                     {
-                                        var kontraktor = responseKontraktor.data[0];
+                                        var kontraktor = responseKontraktor.data;
                                         $.ajax({
                                             url: "<?php echo base_url('contractor/pengawas_board'); ?>",
                                             method : 'POST',
-                                            data : kontraktor,
+                                            data : {kontraktor : kontraktor}
                                         });
                                     }
                                 });

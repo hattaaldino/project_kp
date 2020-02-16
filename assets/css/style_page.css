@@ -18,6 +18,29 @@
       main{
         padding-bottom: 1.5rem;
       }
+
+      /*
+       * Pengawas Cek Projek
+       */
+      
+       .btn[data-toggle="button"]{
+        box-shadow: none;
+        background-color : #333;
+        border-color : rgb(27, 27, 27);
+      }
+      
+      .tandai-pekerjaan.active{
+        box-shadow: none !important;
+        background-color : #FFC009 !important;
+        border-color : rgb(218, 163, 0) !important;
+        color :#272626 !important;
+      }
+
+      span.status-pekerjaan{
+        font-size: medium;
+        font-weight: normal;
+        padding: 0.7em 0.6em;
+      }
       /*
        * Sidebar
        */

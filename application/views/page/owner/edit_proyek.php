@@ -1,7 +1,7 @@
 <script>
     var proyek;
     <?php if(isset($proyek)): ?>
-    proyek = <?php echo $proyek; ?>;
+    proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
     <?php else: ?>
     proyek = {
         id : '',
@@ -15,7 +15,8 @@
             volume : '',
             bobot : '', 
             tanggal_selesai : '',
-            status : ''
+            status : null,
+            dokumentasi : ['']
         }],
         id_pengawas : '',
         id_kontraktor : ''
@@ -33,7 +34,7 @@
             method : "POST",
             data : {id : idpengawas},
             success : function(response){
-                pengawas = response.data[0];
+                pengawas = JSON.parse(response.data[0]);
             }
         });
     } else{
@@ -44,7 +45,7 @@
             role : '',
             alamat : '',
             telepon : '',
-            profile : null
+            profile : ''
         }
     }
 
@@ -54,7 +55,7 @@
             method : "POST",
             data : {id : id_kontraktor},
             success : function(response){
-                kontraktor = response.data[0];
+                kontraktor = JSON.parse(response.data[0]);
             }
         });
     } else{
@@ -65,7 +66,7 @@
             role : '',
             alamat : '',
             telepon : '',
-            profile : null
+            profile : ''
         }
     }
     var changingWork = [];
@@ -161,7 +162,7 @@
                 method : "POST",
                 data : {id : kontraktorSelected},
                 success : function(response){
-                    kontraktor = response.data[0];
+                    kontraktor = JSON.parse(response.data[0]);
                 }
             });
 
@@ -180,7 +181,7 @@
                 method : "POST",
                 data : {id : pengawasSelected},
                 success : function(response){
-                    pengawas = response.data[0];
+                    pengawas = JSON.parse(response.data[0]);
                 }
             });
 
