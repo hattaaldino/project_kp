@@ -93,6 +93,7 @@
                 proyek.nama = namaproyekbaru;
                 $('#nama-proyek').html(namaproyekbaru);
             }
+            $('#editNamaProyekModal').modal('hide');
         });
         $('#editawalproyekbtn').on('click', function(){
             var tglawalproyekbaru = $('.edit-awal-proyek').val();
@@ -100,6 +101,7 @@
                 proyek['tanggal_awal'] = tglawalproyekbaru;
                 $('#tanggal-awal-proyek').html(tglawalproyekbaru);
             }
+            $('#editAwalProyekModal').modal('hide');
         });
         $('#editakhirproyekbtn').on('click', function(){
             var tglakhirproyekbaru = $('.edit-akhir-proyek').val();
@@ -107,6 +109,7 @@
                 proyek['tanggal_akhir'] = tglakhirproyekbaru;
                 $('#tanggal-selesai-proyek').html(tglakhirproyekbaru);
             }
+            $('#editAkhirProyekModal').modal('hide');
         });
         $('#editlokasiproyekbtn').on('click', function(){
             var lokasiproyekbaru = $('.edit-lokasi-proyek').val();
@@ -114,6 +117,7 @@
                 proyek['lokasi'] = lokasiproyekbaru;
                 $('#lokasi-proyek').html(lokasiproyekbaru);
             }
+            $('#editLokasiProyekModal').modal('hide');
         });
 
         $('.edit-pekerjaan').on('click', function(){
@@ -153,6 +157,8 @@
                 (proyek['pekerjaan']).find(data => data.id == idPekerjaan).bobot = bobotPekerjaanBaru;
                 $('td.bobot-pekerjaan[data-id="'+idPekerjaan+'"]').html(bobotPekerjaanBaru);
             }
+
+            $('#editPekerjaanModal').modal('hide');
         });
 
         $('#editkontraktorproyekbtn').on('click', function(){
@@ -172,6 +178,7 @@
                 $('img#gambar-kontraktor').attr('src', 'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png');
 
             $('#nama-kontraktor').html(kontraktor.nama);
+            $('#editKontraktorProyekModal').modal('hide');
         });
 
         $('#editpengawasproyekbtn').on('click', function(){
@@ -191,6 +198,7 @@
                 $('img#gambar-pengawas').attr('src', 'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png');
 
             $('#nama-pengawas').html(pengawas.nama);
+            $('#editPengawasProyekModal').modal('hide');
         });
 
         $('#konfirmasi-perubahan-proyek').on('click', function(){
@@ -200,7 +208,6 @@
                  list += "<td class='nama-pekerjaan' data-id='"+pekerjaanBerubah['id']+"'>"+pekerjaanBerubah['nama']+"</td>\n";
                  list += "<td class='volume-pekerjaan' data-id='"+pekerjaanBerubah['id']+"'>"+pekerjaanBerubah['volume']+"</td>\n";
                  list += "<td class='bobot-pekerjaan' data-id='"+pekerjaanBerubah['id']+"'>"+pekerjaanBerubah['bobot']+"</td>\n";
-                 list += "<td><button class='btn btn-sm btn-outline-secondary edit-pekerjaan' data-id='"+pekerjaanBerubah['id']+"'>Edit</button></td>\n";
                  list += "</tr>\n";
 
                  let listdata = $(list);
@@ -239,8 +246,18 @@
             $.ajax({
                 url : "",
                 method : 'POST',
-                data : data
+                data : data,
+                success : function(responseProyek){
+                    var proyek = responseProyek.data;
+                    $.ajax({
+                        url : "<?php echo base_url('owner_board'); ?>",
+                        method : 'POST',
+                        data : {proyek : proyek},
+                    });
+                }
             });
+
+            $('#konfirmasiPerubahanProyekModal').modal('hide');
         });
     });
 </script>

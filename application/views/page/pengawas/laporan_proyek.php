@@ -51,10 +51,19 @@
                 url : "",
                 method : 'POST',
                 data : data,
-                success : function(){
+                success : function(responseProyek){
+                    var proyek = responseProyek.data;
                     id_pekerjaan.forEach(function(id){
                         table.rows('tr[data-id="'+id+'"]').remove().draw();
                     });
+
+                    $.ajax({
+                        url : "<?php echo base_url('contractor/pengawas_board'); ?>",
+                        method : 'POST',
+                        data : {
+                            proyek : proyek
+                        }
+                    })
                 }
             });
             table.column(2).visible(false);

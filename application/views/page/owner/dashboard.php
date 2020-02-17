@@ -229,7 +229,7 @@
           methos:'POST',
           data: {id : id},
           success: function(){
-            $("tr[data-id='"+id+"']").fadeOut('fast');
+            tabelProyek.row("tr[data-id='"+id+"']").remove().draw();
           }
         });
       });

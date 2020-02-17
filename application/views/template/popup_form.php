@@ -504,3 +504,30 @@
     </div>
   </div>
 <?php endif; ?>
+<!--submit projek-->
+<?php if($this->uri->uri_string === 'kontraktor/dashboard/update-proyek' || $this->uri->uri_string === 'contractor/kontraktor_submit_proyek'): ?>
+  <div class="modal fade" id="dokumentasiProyekModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Dokumentasi Proyek</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <div class="custom-file">
+              <label class="custom-file-label" for="dokumentasi-proyek">Choose file</label>
+              <input type="file" class="custom-file-input" id="dokumentasi-proyek" accept=".jpg, .png, .jpeg" multiple aria-describedby="inputGroupFileAddon04">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-sm btn-primary" id="dokumentasi-proyek-button">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endif; ?>
