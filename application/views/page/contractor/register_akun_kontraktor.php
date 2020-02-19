@@ -208,7 +208,7 @@
                               $.ajax({
                                 url: " ",
                                 method : 'POST',
-                                data : {id : user.id},
+                                data : {id_kontraktor : user.id},
                                 success: function(responseProyek)
                                 {
                                     var proyek = responseProyek.data;

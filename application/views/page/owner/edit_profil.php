@@ -206,7 +206,6 @@
             nama : user.nama,
             username : user.username,
             password : user.password,
-            role : user.role,
             alamat : user.alamat,
             telepon : user.telepon,
             profile : user.profile

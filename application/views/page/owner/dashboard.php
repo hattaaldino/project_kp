@@ -121,8 +121,6 @@
             var proyek = JSON.parse(responseProyek.data[0]);
             $.ajax({
               url: "",
-              method: 'POST',
-              data: {id : proyek.id},
               success: function(responseKontraktor){
                 var kontraktor = responseKontraktor.data;
                 $.ajax({
@@ -134,8 +132,6 @@
             });
             $.ajax({
               url: "",
-              method: 'POST',
-              data: {id : proyek.id},
               success: function(responsePengawas){
                 var pengawas = responsePengawas.data;
                 $.ajax({

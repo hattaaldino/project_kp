@@ -99,9 +99,9 @@
                                 success: function()
                                 {
                                     $.ajax({
-                                        url: " ",
+                                        url: "",
                                         method : 'POST',
-                                        data : {id : id},
+                                        data : {id_owner : id},
                                         success: function(responseProyek)
                                         {
                                             var proyek = responseProyek.data;
@@ -129,7 +129,7 @@
                                     $.ajax({
                                         url: " ",
                                         method : 'POST',
-                                        data : {id : id},
+                                        data : {id_owner : id},
                                         success: function(responsePengawas)
                                         {
                                             var pengawas = responsePengawas.data;
@@ -157,7 +157,7 @@
                                 $.ajax({
                                     url: " ",
                                     method : 'POST',
-                                    data : {id : id},
+                                    data : {id_kontraktor : id},
                                     success: function(responseProyek)
                                     {
                                         var proyek = responseProyek.data;
@@ -185,7 +185,7 @@
                                 $.ajax({
                                     url: " ",
                                     method : 'POST',
-                                    data : {id : id},
+                                    data : {id_pengawas : id},
                                     success: function(responseProyek)
                                     {
                                         var proyek = responseProyek.data;
@@ -198,8 +198,6 @@
                                 });
                                 $.ajax({
                                     url: " ",
-                                    method : 'POST',
-                                    data : {id : id},
                                     success: function(responseKontraktor)
                                     {
                                         var kontraktor = responseKontraktor.data;
