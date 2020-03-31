@@ -232,5 +232,64 @@
 
     });
 </script>    
+
+<!--Project Excel Parser -->
+<script>
+  $(document).on('ready', function(){
+    const unit = ['bh', 'bln', 'btg', 'kg', 'ls', 'm', 'm\'', 'm1', 'm2', 'm3', 'unit'];
+
+			var pekerjaan = [];
+
+			function validWork (work){
+				if(typeof work[5] === 'string'){	
+					if(unit.includes(work[5].toLowerCase())){
+						let data = {
+							nama : work[1],
+							volume : work[4],
+							bobot : work[9]
+						}
+						pekerjaan.push(data);
+					}
+				}
+			}
+
+			function projectExtraction (workbook){
+				var sheetName = workbook.SheetNames[0];
+				var volumeSheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header:1});
+				volumeSheet.forEach(elem => {
+					validWork(elem);
+				});
+			}
+
+			var do_file = (function() {
+				return function do_file(files) {
+					var f = files[0];
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						var data = e.target.result;
+						data = new Uint8Array(data);
+						projectExtraction(XLSX.read(data, {type:'array'}));
+					};
+					reader.readAsArrayBuffer(f);
+				};
+			})();
+
+			$('#drop').on('dragover dragenter', function(e){
+				e.stopPropagation();
+				e.preventDefault();
+				e.originalEvent.dataTransfer.dropEffect = 'copy';
+			});
+      
+      $('#drop').on('drop', function(e){
+				e.stopPropagation();
+				e.preventDefault();
+				do_file(e.originalEvent.dataTransfer.files);
+			});
+      
+      $('#xlf').on('change', function(e){
+				do_file(e.target.files);
+			});
+  });
+</script>
 </body>
 </html>

@@ -86,7 +86,13 @@
             <div class="modal-body">
               <div class="md-form form-sm mb-3">
                 <label class="h6" for="inputVolumeProject">Volume Project</label>
-                
+                <div id="pilihFileProyek" class="text-center">
+                  <div id="drop">Letakan file spreadsheet disini</div>
+                  <div class="pt-3">
+                    <h6>Atau klik ini untuk pilih file</h6>
+                  	<input type="file" name="xlfile" id="xlf">
+                  </div>
+                </div> 
               </div>
             </div>
             <div class="modal-footer">

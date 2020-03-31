@@ -30,6 +30,7 @@ $user = $_SESSION['user'];
     <script type="text/javascript" src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script>
       $(document).ready(function(){
         $('#namaHeader').html('<?php echo $user['nama']; ?>');
