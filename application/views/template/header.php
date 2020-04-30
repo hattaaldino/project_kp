@@ -32,6 +32,9 @@ $user = $_SESSION['user'];
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script>
+      <?php if(!isset($user)): ?>
+        $('#errorPageDialog').modal('show');
+      <?php endif; ?>
       $(document).ready(function(){
         $('#namaHeader').html('<?php echo $user['nama']; ?>');
         $('#logoutButton').on('click', function(){

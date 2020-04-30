@@ -1,40 +1,25 @@
 <script>
     var proyek;
-    <?php if(isset($proyek)): ?>
-    proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
+    <?php if(isset($proyek) && isset($pengawas) && isset($kontraktor)): ?>
+        proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
     <?php else: ?>
-    proyek = {
-        id : '',
-        nama : '',
-        lokasi : '',
-        tanggal_awal : '',
-        tanggal_akhir : '',
-        pekerjaan : [{
-            id : '',
-            nama : '',
-            volume : '',
-            bobot : '', 
-            tanggal_selesai : '',
-            status : null,
-            dokumentasi : ['']
-        }],
-        id_pengawas : '',
-        id_kontraktor : ''
-    }
+        $('#errorPageDialog').modal('show');
     <?php endif; ?>
 
     var idproyek = proyek.id;
-    var idpengawas = proyek['id_pengawas'];
-    var idkontraktor = proyek['id_kontraktor'];
+    var idpengawas = proyek['pengawasID'];
+    var idkontraktor = proyek['kontraktorID'];
     var pengawas;
     var kontraktor;
-    if(proyek['id_pengawas']){
+    if(proyek['pengawasID']){
+        // send. id pengawas to pengawas table
+        // expect. pengawas data related to id pengawas from pengawas table
         $.ajax({
-            url : "",
+            url : "<?php echo base_url('api/Users/pengawas'); ?>",
             method : "POST",
             data : {id : idpengawas},
             success : function(response){
-                pengawas = JSON.parse(response.data[0]);
+                pengawas = response.data[0];
             }
         });
     } else{
@@ -49,13 +34,15 @@
         }
     }
 
-    if(proyek['id_kontraktor']){
+    if(proyek['kontraktorID']){
+        // send. id kontraktor to kontraktor table
+        // expect. kontraktor data related to id kontraktor from kontraktor table
         $.ajax({
-            url : "",
+            url : "<?php echo base_url('api/Users/kontraktor'); ?>",
             method : "POST",
-            data : {id : id_kontraktor},
+            data : {id : kontraktorID},
             success : function(response){
-                kontraktor = JSON.parse(response.data[0]);
+                kontraktor = response.data[0];
             }
         });
     } else{
@@ -69,19 +56,33 @@
             profile : ''
         }
     }
-    var changingWork = [];
     $(document).ready(function(){
+        // set pengawas profile
         if(pengawas.profile){
-            $("img[class='gambar-pengawas'").attr("src", pengawas.profile);
+            $("img.gambar-pengawas").attr("src", pengawas.profile);
+        } else {
+            $('img.gambar-pengawas').attr('src', 'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png');
         }
+
+        // set pengawas name
         if(pengawas.nama){
             $("#nama-pengawas").html(pengawas.nama);
+        } else {
+            $("#nama-pengawas").html("No Name");
         }
+
+        // set kontraktor profile
         if(kontraktor.profile){
-            $("img[class='gambar-kontraktor'").attr("src", kontraktor.profile);
+            $("img.gambar-kontraktor").attr("src", kontraktor.profile);
+        } else {
+            $('img.gambar-kontraktor').attr('src', 'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png');
         }
-        if(pengawas.profile){
+
+        // set kontraktor name
+        if(kontraktor.nama){
             $("#nama-kontraktor").html(kontraktor.nama);
+        } else {
+            $("#nama-kontraktor").html("No Name");
         }
     });
     $(document).ready(function(){
@@ -133,6 +134,7 @@
             var idPekerjaan = $('#editPekerjaanModal').data('idKerja');
             
             var ada = false;
+            var changingWork = [];
             changingWork.forEach(elem => {
                 if(elem == idPekerjaan)
                     ada = true;
@@ -163,19 +165,22 @@
 
         $('#editkontraktorproyekbtn').on('click', function(){
             var kontraktorSelected = $('#editKontraktorProyek').val();
+            
+            // send. id kontraktor to kontraktor table
+            // expect. kontraktor data related to id kontraktor from kontraktor table
             $.ajax({
-                url : "",
+                url : "<?php echo base_url('api/Users/kontraktor'); ?>",
                 method : "POST",
                 data : {id : kontraktorSelected},
                 success : function(response){
-                    kontraktor = JSON.parse(response.data[0]);
+                    kontraktor = response.data[0];
                 }
             });
 
             if(kontraktor.profile)
-                $('img#gambar-kontraktor').attr('src', kontraktor.profile);
+                $('img.gambar-kontraktor').attr('src', kontraktor.profile);
             else
-                $('img#gambar-kontraktor').attr('src', 'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png');
+                $('img.gambar-kontraktor').attr('src', 'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png');
 
             $('#nama-kontraktor').html(kontraktor.nama);
             $('#editKontraktorProyekModal').modal('hide');
@@ -183,19 +188,22 @@
 
         $('#editpengawasproyekbtn').on('click', function(){
             var pengawasSelected = $('#editPengawasProyek').val();
+
+            // send. id pengawas to kontraktor table
+            // expect. pengawas data related to id pengawas from pengawas table
             $.ajax({
-                url : "",
+                url : "<?php echo base_url('api/Users/pengawas'); ?>",
                 method : "POST",
                 data : {id : pengawasSelected},
                 success : function(response){
-                    pengawas = JSON.parse(response.data[0]);
+                    pengawas = response.data[0];
                 }
             });
 
             if(pengawas.profile)
-                $('img#gambar-pengawas').attr('src', pengawas.profile);
+                $('img.gambar-pengawas').attr('src', pengawas.profile);
             else
-                $('img#gambar-pengawas').attr('src', 'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png');
+                $('img.gambar-pengawas').attr('src', 'https://www.sackettwaconia.com/wp-content/uploads/default-profile.png');
 
             $('#nama-pengawas').html(pengawas.nama);
             $('#editPengawasProyekModal').modal('hide');
@@ -229,30 +237,41 @@
                 let pekerjaanBerubah = (proyek['pekerjaan']).find(data => data.id == elem);
                 pekerjaan.push(pekerjaanBerubah);
             });
-            var id_kontraktor = kontraktor.id;
-            var id_pengawas = pengawas.id;
+            var kontraktorID = kontraktor.id;
+            var pengawasID = pengawas.id;
 
-            var data = {
+            var updateProyek = {
                 id : id,
                 nama : nama,
                 tanggal_awal : tanggal_awal,
                 tanggal_akhir : tanggal_akhir,
                 lokasi : lokasi,
-                pekerjaan : pekerjaan,
-                id_pengawas : id_pengawas,
-                id_kontraktor : id_kontraktor
+                pengawasID : pengawasID,
+                kontraktorID : kontraktorID
             }
 
+            // send. pekerjaan array to pekerjaan table
+            // update. pekerjaan related to pekerjaan's array in pekerjaan table
             $.ajax({
-                url : "",
+                url : "<?php echo base_url('api/Proyek/change_pekerjaan'); ?>",
+                method : "POST",
+                data : {pekerjaan : JSON.stringify(pekerjaan)}
+            });
+
+            // send. updateProyek to proyek table
+            // update. proyek related to id proyek in proyek table
+            // expect. all proyek from owner id (use user id)
+            $.ajax({
+                url : "<?php echo base_url('api/Proyek/change_proyek'); ?>",
                 method : 'POST',
-                data : data,
+                data : updateProyek,
                 success : function(responseProyek){
-                    var proyek = responseProyek.data;
+                    var proyek = JSON.stringify(responseProyek.data);
+                    // send. proyek to owner_board
                     $.ajax({
                         url : "<?php echo base_url('owner_board'); ?>",
                         method : 'POST',
-                        data : {proyek : proyek},
+                        data : {proyek : proyek}
                     });
                 }
             });
@@ -357,29 +376,10 @@
                 <div class="row mt-3">
                     <div class="col-md-6 text-center">
                         <div class="data-pjproyek mb-3">
-                            <?php 
-                                $kontraktorProyek;
-                                if(isset($kontraktor)){
-                                    foreach($kontraktor as $listkontraktor) {
-                                        if($listkontraktor['id'] == $proyek['id_kontraktor']){
-                                            $kontraktorProyek = $listkontraktor;
-                                            break;
-                                        }
-                                    }
-                                }
-                            ?>
-                            <?php if(isset($kontraktorProyek['profile'])): ?>
-                                <img class="gambar-kontraktor" src="<?php echo $kontraktorProyek['profile']; ?>" width="100%">
-                            <?php else: ?>
-                                <img class="gambar-kontraktor" src="https://www.sackettwaconia.com/wp-content/uploads/default-profile.png" width="100%">
-                            <?php endif; ?>
+                            <img class="gambar-kontraktor" width="100%">
                             <div class="container">
                                 <p class="lead mt-2 mb-0" style="font-size:15px;">Kontraktor</p>
-                                <?php if(isset($kontraktorProyek['nama'])): ?>
-                                    <p class="text-muted" id="nama-kontraktor"><?php echo $kontraktorProyek['nama']; ?></p>
-                                <?php else: ?>
-                                    <p class="text-muted" id="nama-kontraktor">No Name</p>
-                                <?php endif; ?>
+                                <p class="text-muted" id="nama-kontraktor"></p>
                             </div>
                         </div>
                         <div>
@@ -388,29 +388,10 @@
                     </div>
                     <div class="col-md-6 text-center">
                         <div class="data-pjproyek mb-3">
-                            <?php 
-                                $pengawasProyek;
-                                if(isset($pengawas)){
-                                    foreach($pengawas as $listpengawas) {
-                                        if($listpengawas['id'] == $proyek['id_pengawas']){
-                                            $pengawasProyek = $listpengawas;
-                                            break;
-                                        }
-                                    }
-                                }
-                            ?>
-                            <?php if(isset($pengawasProyek['profile'])): ?>
-                                <img class="gambar-pengawas" src="<?php echo $pengawasProyek['profile']; ?>" width="100%">
-                            <?php else: ?>
-                                <img class="gambar-pengawas" src="https://www.sackettwaconia.com/wp-content/uploads/default-profile.png" width="100%">
-                            <?php endif; ?>
+                            <img class="gambar-pengawas" width="100%">
                             <div class="container">
                                 <p class="lead mt-2 mb-0" style="font-size:15px;">Pengawas</p>
-                                <?php if(isset($pengawasProyek['nama'])): ?>
-                                    <p class="text-muted" id="nama-pengawas"><?php echo $pengawasProyek['nama']; ?></p>
-                                <?php else: ?>
-                                    <p class="text-muted" id="nama-pengawas">No Name</p>
-                                <?php endif; ?>
+                                <p class="text-muted" id="nama-pengawas"></p>
                             </div>
                         </div>
                         <div>

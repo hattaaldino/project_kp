@@ -1,4 +1,4 @@
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="content text-center">
             <div class="container-daftar-pengawas">
               <div class="alert alert-warning alert-dismissible " id="alert-name" style="display: none" role="alert">
@@ -17,6 +17,13 @@
 
                 <div class="alert alert-warning alert-dismissible " id="alert-password" style="display: none" role="alert">
                   <strong>SignUp Gagal!</strong> pastikan password yang anda masukkan sudah sesuai.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="alert alert-warning alert-dismissible " id="alert-exist-username" style="display: none" role="alert">
+                  <strong>SignUp Gagal!</strong> Username yang anda gunakan sudah terdaftar!!
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -106,7 +113,7 @@
         });
 
         $('#daftarbtn').on('click', function(){
-            var id_owner = JSON.parse('<?php echo json_encode($_SESSION['user']['id']); ?>');
+            var ownerID = JSON.parse('<?php echo json_encode($_SESSION['user']['id']); ?>');
             var nama = $('#nama').val();
             var username = $('#username').val();
             var password = $('#inputPassword').val();
@@ -145,7 +152,7 @@
             else{
               
               let form_data = new FormData();
-              form_data.append('id_owner', id_owner);
+              form_data.append('ownerID', ownerID);
               form_data.append('nama', nama);
               form_data.append('username', username);
               form_data.append('password', password);
@@ -154,6 +161,9 @@
               form_data.append('telepon', telepon);
               form_data.append('profile', profile);
               
+              // send. form_data to user table and pengawas table
+              // expect. all pengawas related owner id from pengawas table
+              // error. when sent username already exist in user table
               $.ajax({
                   url: " ",
                   method: 'POST',
@@ -161,7 +171,8 @@
                   processData: false,
                   contentType: false,
                   success: function(response){
-                      var pengawas = response.data;
+                      var pengawas = JSON.stringify(response.data);
+                      // send. pengawas data to owner board
                       $.ajax({
                           url: "<?php echo base_url('contractor/owner_board'); ?>",
                           method : 'POST',
@@ -169,7 +180,7 @@
                       });
                   },
                   error: function(){
-                      $('#alert-username').fadeIn();
+                      $('#alert-exist-username').fadeIn();
                   }
               });
             }

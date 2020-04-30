@@ -61,6 +61,13 @@
           </button>
         </div>
 
+        <div class="alert alert-warning alert-dismissible " id="alert-exist-username" style="display: none" role="alert">
+          <strong>SignUp Gagal!</strong> Username yang anda gunakan sudah terdaftar!!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
       <div class="needs-validation" novalidate> 
         <div class="mb-3">
           <label for="nama">Nama*</label>
@@ -193,26 +200,32 @@
                 form_data.append('telepon', telepon);
                 form_data.append('profile', profile);
                 
+                // send. form_data to user table & owner table
+                // expect. owner data related to sent data from owner table
+                // error. when sent username already exist in user table
                 $.ajax({
-                    url: "",
+                    url: "<?php echo base_url('api/SignUp'); ?>",
                     method: 'POST',
                     data: form_data,
                     processData: false,
                     contentType: false,
                     success: function(response){
-                        var user = JSON.parse(response.data[0]);
+                        var user = response.data;
+                        // send. data owner to session function
                         $.ajax({
                             url: "<?php echo base_url('user_session/userIn'); ?>",
                             method : 'POST',
-                            data : {user : response.data[0]},
+                            data : {user : JSON.stringify(user)},
                             success: function(){
+                              // send. owner id to proyek table - expect. all proyek related to owner id from proyek table
                               $.ajax({
-                                url: " ",
+                                url: "<?php echo base_url('api/Proyek/proyek_byowner'); ?>",
                                 method : 'POST',
-                                data : {id_owner : user.id},
+                                data : {ownerID : user.id},
                                 success: function(responseProyek)
                                 {
-                                    var proyek = responseProyek.data;
+                                    var proyek = JSON.stringify(responseProyek.data);
+                                     // send. proyek data to pengawas board
                                     $.ajax({
                                         url: "<?php echo base_url('contractor/owner_board'); ?>",
                                         method : 'POST',
@@ -221,11 +234,13 @@
                                 }
                               });
 
+                              // expect. all kontraktor from kontraktor table
                               $.ajax({
-                                  url: " ",
+                                  url: "<?php echo base_url('api/Users/kontraktorall'); ?>",
                                   success: function(responseKontraktor)
                                   {
-                                      var kontraktor = responseKontraktor.data;
+                                      var kontraktor = JSON.stringify(responseKontraktor.data);
+                                       // send. kontraktor data to pengawas board
                                       $.ajax({
                                           url: "<?php echo base_url('contractor/owner_board'); ?>",
                                           method : 'POST',
@@ -234,13 +249,15 @@
                                   }
                               });
 
+                              // send. owner id to pengawas table - expect. all pengawas related to owner id from pengawas table
                               $.ajax({
-                                  url: " ",
+                                  url: "<?php echo base_url('api/Users/pengawas_byowner'); ?>",
                                   method : 'POST',
-                                  data : {id_owner : user.id},
+                                  data : {ownerID : user.id},
                                   success: function(responsePengawas)
                                   {
-                                      var pengawas = responsePengawas.data;
+                                      var pengawas = JSON.stringify(responsePengawas.data);
+                                       // send. pengawas data to pengawas board
                                       $.ajax({
                                           url: "<?php echo base_url('contractor/owner_board'); ?>",
                                           method : 'POST',
@@ -250,14 +267,11 @@
                               });
 
                               window.location.href="<?php echo base_url('owner/dashboard'); ?>";
-                            },
-                            error: function(){
-                                $('#alert-username').fadeIn();
                             }
                         })
                     },
                     error: function(){
-                        $('#alert-username').fadeIn();
+                        $('#alert-exist-username').fadeIn();
                     }
                 });
             }

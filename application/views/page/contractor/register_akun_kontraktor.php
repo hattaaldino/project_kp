@@ -61,6 +61,13 @@
           </button>
         </div>
 
+        <div class="alert alert-warning alert-dismissible " id="alert-exist-username" style="display: none" role="alert">
+          <strong>SignUp Gagal!</strong> Username yang anda gunakan sudah terdaftar!!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
       <div class="needs-validation" novalidate> 
         <div class="mb-3">
           <label for="nama">Nama*</label>
@@ -192,26 +199,35 @@
                 form_data.append('telepon', telepon);
                 form_data.append('profile', profile);
                 
+                // send. form_data to user table and kontraktor table
+                // expect. kontraktor data related to sent data from kontraktor table
+                // error. when sent username already exist in user table
                 $.ajax({
-                    url: " ",
+                    url: "<?php echo base_url('api/SignUp'); ?>",
                     method: 'POST',
                     data: form_data,
                     processData: false,
                     contentType: false,
                     success: function(response){
-                        var user = JSON.parse(response.data[0]);
+                        var user = response.data;
+                        // send. data kontraktor to session function
                         $.ajax({
                             url: "<?php echo base_url('user_session/userIn'); ?>",
                             method : 'POST',
-                            data : {user : response.data[0]},
+                            data : {user : JSON.stringify(user)},
                             success: function(){
+                              
+                              // send. kontraktor id to proyek table
+                              // expect. all proyek related to kontraktor id from proyek table
                               $.ajax({
-                                url: " ",
+                                url: "<?php echo base_url('api/Proyek/proyek_bykontraktor'); ?>",
                                 method : 'POST',
-                                data : {id_kontraktor : user.id},
+                                data : {kontraktorID : user.id},
                                 success: function(responseProyek)
                                 {
-                                    var proyek = responseProyek.data;
+                                    var proyek = JSON.stringify(responseProyek.data);
+
+                                    // send. proyek data to kontraktor board
                                     $.ajax({
                                         url: "<?php echo base_url('contractor/kontraktor_board'); ?>",
                                         method : 'POST',
@@ -221,14 +237,11 @@
                               });
 
                               window.location.href="<?php echo base_url('kontraktor/dashboard'); ?>";
-                            },
-                            error: function(){
-                                $('#alert-username').fadeIn();
                             }
                         })
                     },
                     error: function(){
-                        $('#alert-username').fadeIn();
+                      $('#alert-exist-username').fadeIn();
                     }
                 });
             }

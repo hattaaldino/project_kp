@@ -1,4 +1,12 @@
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+<script>
+  var pengawas;
+    <?php if(isset($pengawas)): ?>
+      pengawas = JSON.parse('<?php echo json_encode($pengawas); ?>');
+    <?php else: ?>
+      $('#errorPageDialog').modal('show');
+    <?php endif; ?> 
+  </script>     
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="content">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h3">Edit Data Akun</h1>
@@ -94,22 +102,6 @@
     </div>
   </div>
 <script>
-  var pengawas;
-  <?php if(isset($pengawas)): ?>
-    pengawas = JSON.parse('<?php echo json_encode($pengawas); ?>');
-  <?php else: ?>
-    pengawas = {
-        id : '',
-        nama : '',
-        username : '',
-        password : '',
-        role : '',
-        alamat : '',
-        telepon : '',
-        profile : ''
-    };
-  <?php endif; ?>
-  
   $(document).ready(function(){
     $('input#edit-foto-profil').on('change', function(){
       var file = $('input#edit-foto-profil').prop('files')[0];
@@ -198,10 +190,8 @@
     });
     $('#konfirmasi-perubahan-profil').on('click', function(){
       if(pengawas.id){
-        $.ajax({
-          url : "",
-          method : 'POST',
-          data : {
+        
+        let updatePengawas = {
             id : pengawas.id,
             nama : pengawas.nama,
             username : pengawas.username,
@@ -210,13 +200,22 @@
             alamat : pengawas.alamat,
             telepon : pengawas.telepon,
             profile : pengawas.profile
-          },
+          }
+        // send. data pengawas to pengawas table
+        // update. pengawas
+        // expect. all pengawas from this owner (use user id)
+        $.ajax({
+          url : "<?php echo base_url('api/Users/edit_pengawas'); ?>",
+          method : 'POST',
+          data : updatePengawas,
           success : function(responsePengawas){
-            var setPengawas = responsePengawas.data;
+            var Pengawas = JSON.stringify(responsePengawas.data);
+
+            //send. Pengawas to owner_board
             $.ajax({
               url: "<?php echo base_url('contractor/owner_board'); ?>",
               method : 'POST',
-              data : {pengawas : setPengawas}
+              data : {pengawas : Pengawas}
             });
           }
         });

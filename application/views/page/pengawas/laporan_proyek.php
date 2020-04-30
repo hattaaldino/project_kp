@@ -3,25 +3,7 @@
     <?php if(isset($proyek)): ?>
     proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
     <?php else: ?>
-    proyek = {
-        id : '',
-        nama : '',
-        lokasi : '',
-        tanggal_awal : '',
-        tanggal_akhir : '',
-        pekerjaan : [{
-            id : '',
-            nama : '',
-            volume : '',
-            bobot : '', 
-            tanggal_selesai : '',
-            status : null,
-            dokumentasi : ['']
-        }],
-        id_owner: '',
-        id_pengawas : '',
-        id_kontraktor : ''
-    };
+        $('#errorPageDialog').modal('show');
     <?php endif; ?>
 
     $(document).ready(function(){
@@ -47,16 +29,21 @@
                 id : id_pekerjaan,
                 status : 1
             }
+
+            // send. pekerjaan id's array to pekerjaan table
+            // update. status related to pekerjaan id's to 1
+            // expect. all proyek from this pengawas (use user id)
             $.ajax({
-                url : "",
+                url : "<?php echo base_url('api/Proyek/status_pekerjaan'); ?>",
                 method : 'POST',
                 data : data,
                 success : function(responseProyek){
-                    var proyek = responseProyek.data;
+                    var proyek = JSON.stringify(responseProyek.data);
                     id_pekerjaan.forEach(function(id){
                         table.rows('tr[data-id="'+id+'"]').remove().draw();
                     });
 
+                    //send. proyek to pengawas board
                     $.ajax({
                         url : "<?php echo base_url('contractor/pengawas_board'); ?>",
                         method : 'POST',

@@ -1,3 +1,11 @@
+<script>
+    var proyek;
+        <?php if(isset($proyek)): ?>
+            proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
+        <?php else: ?>
+            $('#errorPageDialog').modal('show');
+        <?php endif; ?>
+</script>        
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="content">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
@@ -35,30 +43,6 @@
     </div>
     </div>
 <script>
-    var proyek;
-    <?php if(isset($proyek)): ?>
-    proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
-    <?php else: ?>
-    proyek = {
-        id : '',
-        nama : '',
-        lokasi : '',
-        tanggal_awal : '',
-        tanggal_akhir : '',
-        pekerjaan : [{
-            id : '',
-            nama : '',
-            volume : '',
-            bobot : '', 
-            tanggal_selesai : '',
-            status : null,
-            dokumentasi : ['']
-        }],
-        id_owner: '',
-        id_pengawas : '',
-        id_kontraktor : ''
-    };
-    <?php endif; ?>
     $(document).ready(function(){
         var table = $('#pekerjaan-table').DataTable();
         $('.tandai-pekerjaan').on('click', function(){
@@ -94,8 +78,9 @@
                 });
             }
 
+            //send. id_pekerjaan and images to dokumentasipekerjaan table
             $.ajax({
-                url : "",
+                url : "<?php echo base_url('api/Proyek/dokumentasi'); ?>",
                 method : 'POST',
                 data : {
                     id : id_pekerjaan,
@@ -117,8 +102,12 @@
                 id : id_pekerjaan,
                 status : 0
             }
+
+            // send. pekerjaan id's array to pekerjaan table
+            // update. status related to pekerjaan id's to 1
+            // expect. all proyek from this kontraktor (use user id)
             $.ajax({
-                url : "",
+                url : "<?php echo base_url('api/Proyek/proyek'); ?>",
                 method : 'POST',
                 data : data,
                 success : function(responseProyek){
@@ -126,7 +115,8 @@
                         table.rows('tr[data-id="'+id+'"]').remove().draw();
                     });
 
-                    var proyek = responseProyek.data[0];
+                    //send. proyek to kontraktor_data_proyek
+                    var proyek = JSON.stringify(responseProyek.data[0]);
                     $.ajax({
                         url : "<?php echo base_url('contractor/kontraktor_data_proyek'); ?>",
                         method : 'POST',

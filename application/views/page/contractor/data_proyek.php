@@ -1,3 +1,11 @@
+<script>
+    var proyek;
+        <?php if(isset($proyek)): ?>
+            proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
+        <?php else: ?>
+            $('#errorPageDialog').modal('show');
+        <?php endif; ?>
+</script>
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="content">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
@@ -53,51 +61,16 @@
     </div>
     </div>
 <script>
-    var proyek;
-    <?php if(isset($proyek)): ?>
-    proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
-    <?php else: ?>
-    proyek = {
-        id : '',
-        nama : '',
-        lokasi : '',
-        tanggal_awal : '',
-        tanggal_akhir : '',
-        pekerjaan : [{
-            id : '',
-            nama : '',
-            volume : '',
-            bobot : '', 
-            tanggal_selesai : '',
-            status : null,
-            dokumentasi : ['']
-        }],
-        id_owner: '',
-        id_pengawas : '',
-        id_kontraktor : ''
-    };
-    <?php endif; ?>
     $(document).ready(function(){
         $('#table-pekerjaan').DataTable();
         $('#judulproyek').html(proyek['nama']);
         $('.update-pekerjaan').on('click', function(){
-            var id = proyek.id;
             $.ajax({
-                url : "",
+                url : "<?php echo base_url('contractor/kontraktor_submit_proyek'); ?>",
                 method : 'POST',
-                data : {
-                    id : id
-                },
-                success : function(responseProyek){
-                    var proyek = responseProyek.data[0];
-                    $.ajax({
-                        url : "<?php echo base_url('contractor/kontraktor_submit_proyek'); ?>",
-                        method : 'POST',
-                        data : {proyek : proyek},
-                        success : function(){
-                            window.location.href = '<?php echo base_url('kontraktor/dashboard/update-proyek'); ?>';
-                        }
-                    });
+                data : {proyek : proyek},
+                success : function(){
+                    window.location.href = '<?php echo base_url('kontraktor/dashboard/update-proyek'); ?>';
                 }
             });
         });

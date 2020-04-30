@@ -16,6 +16,24 @@
     </div>
   </div>
 </div>
+<!-- Error Page Dialog -->
+<div class="modal fade" id="errorPageDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Terjadi kerusakan pada halaman</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Upss terjadi masalah pada halaman ini.. coba untuk logout kemudian login kembali :)</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="logoutButton" class="btn btn-primary">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!--create project dialog-->
 <?php if($this->uri->uri_string === 'owner/dashboard' || $this->uri->uri_string === 'contractor/owner_board'): ?>
   <div class="modal fade" id="createProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

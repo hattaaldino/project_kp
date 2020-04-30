@@ -1,3 +1,12 @@
+<script>
+  var proyek;
+  <?php if(isset($proyek)): ?>
+    proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
+  <?php else: ?>
+    $('#errorPageDialog').modal('show');
+  <?php endif; ?>
+</script>   
+
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="content">
         <h1 id="judulproyek" class="h3 pb-2 mb-3 border-bottom"></h1>
@@ -30,31 +39,6 @@
 </div>
 <!------>
 <script>
-  var proyek;
-  <?php if(isset($proyek)): ?>
-    proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
-  <?php else: ?>
-    proyek = {
-        id : '',
-        nama : '',
-        lokasi : '',
-        tanggal_awal : '',
-        tanggal_akhir : '',
-        pekerjaan : [{
-            id : '',
-            nama : '',
-            volume : '',
-            bobot : '', 
-            tanggal_selesai : '',
-            status : null,
-            dokumentasi : ['']
-        }],
-        id_owner: '',
-        id_pengawas : '',
-        id_kontraktor : ''
-    };
-  <?php endif; ?>
-  
   $(document).ready(function(){
     //Setting Judul Proyek
     $('#judulproyek').html(proyek.nama);

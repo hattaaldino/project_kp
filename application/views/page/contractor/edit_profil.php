@@ -97,17 +97,6 @@
   var user;
   <?php if(isset($user)): ?>
     user = JSON.parse('<?php echo json_encode($user); ?>');
-  <?php else: ?>
-    user = {
-        id : '',
-        nama : '',
-        username : '',
-        password : '',
-        role : '',
-        alamat : '',
-        telepon : '',
-        profile : ''
-    };
   <?php endif; ?>
   
   $(document).ready(function(){
@@ -115,6 +104,7 @@
       var file = $('input#edit-foto-profil').prop('files')[0];
       $('label#edit-foto-profil').text(file.name);
     });
+
     $('input.telepon').on('change', function(){
       const telpVerification = /\+?[0-9]{4,5}[-\s]?[0-9]{4}[-\s]?[0-9]{4,5}/i;
       var nomor = $('input.telepon').val();
@@ -125,6 +115,7 @@
         $('.telp-alert').fadeOut();
       }
     });
+
     $('#edit-foto').on('click', function(){
       var profilbaru = $('input#edit-foto-profil').prop('files')[0];
       if(profilbaru){
@@ -196,22 +187,30 @@
       }
       $('#editTelpModal').modal('hide');
     });
+
     $('#konfirmasi-perubahan-profil').on('click', function(){
       if(user.id){
+        let updateUser = {
+              id : user.id,
+              nama : user.nama,
+              username : user.username,
+              password : user.password,
+              role : <?php echo $user['role']; ?>,
+              alamat : user.alamat,
+              telepon : user.telepon,
+              profile : user.profile
+        }
+        
+        // send. updateUser to kontraktor table and user table
+        // expect. kontraktor data related to user id from kontraktor table
         $.ajax({
-          url : "",
+          url : "<?php echo base_url('api/Users'); ?>",
           method : 'POST',
-          data : {
-            id : user.id,
-            nama : user.nama,
-            username : user.username,
-            password : user.password,
-            alamat : user.alamat,
-            telepon : user.telepon,
-            profile : user.profile
-          },
+          data : updateUser,
           success : function(responseUser){
-            var userBaru = responseUser.data[0];
+            var userBaru = JSON.stringify(responseUser.data[0]);
+
+            // send. userBaru to session function
             $.ajax({
               url: "<?php echo base_url('user_session/userIn'); ?>",
               method : 'POST',

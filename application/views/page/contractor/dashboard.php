@@ -1,3 +1,8 @@
+<script>
+  <?php if(!isset($proyek)): ?>
+    $('#errorPageDialog').modal('show');
+  <?php endif; ?>
+</script>
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="content">
               <h1 class="h3 pb-2 mb-3 border-bottom">Proyek</h1>
@@ -21,12 +26,17 @@
   $(document).ready(function(){
     $('.detail-proyek-kontraktor').on('click', function(){
       var id = $(this).data('id');
+
+      // send. id proyek to proyek table
+      // expect. proyek data related to id proyek from proyek table
       $.ajax({
-        url : "",
+        url : "<?php echo base_url('api/Proyek/proyek'); ?>",
         method : 'POST',
         data : {id : id},
         success : function(responseProyek){
-          var proyek = responseProyek.data[0];
+          var proyek = JSON.stringify(responseProyek.data[0]);
+
+          // send. proyek to laporan_proyek
           $.ajax({
             url : "<?php echo base_url('contractor/kontraktor_data_proyek'); ?>",
             method : 'POST',

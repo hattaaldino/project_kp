@@ -56,29 +56,31 @@
       </main>
       <script>
             $(document).ready(function() { 
+            var unique_user;
+            var valid_user;
+
             $('#login').on('click', function(){
             username = $('#inputusername').val();
             password = $('#inputPassword').val();
+            
+            unique_user = false;
+            valid_user = false;
 
             let data = {
                 username : username,
                 password : password
             }
-
+            // send. data to user table - expect. data from owner/pengawas/kontraktor table
             $.ajax({
-                url: "",
+                url: "<?php echo base_url('api/Login'); ?>",
                 method : 'POST',
                 data : data,
                 success: function(response)
                 {
-                    var responsejs = JSON.parse(response.data[0]);
+                    var responsejs = response.data[0];
                     id = responsejs.id;
                     nama = responsejs.nama;
                     role = responsejs.role;
-
-                    var unique_user = false;
-
-                    var valid_user = false;
 
                     if(response.data.length <= 1){
                         unique_user = true
@@ -92,19 +94,22 @@
                         var user = JSON.stringify(responsejs);
                         if (role == 'owner')
                         {
+                            // send. data owner to session function
                             $.ajax({
                                 url: "<?php echo base_url('user_session/userIn'); ?>",
                                 method : 'POST',
                                 data : {user : user},
                                 success: function()
                                 {
+                                    // send. owner id to proyek table - expect. all proyek related to owner id from proyek table
                                     $.ajax({
-                                        url: "",
+                                        url: "<?php echo base_url('api/Proyek/proyek_byowner'); ?>",
                                         method : 'POST',
-                                        data : {id_owner : id},
+                                        data : {ownerID : id},
                                         success: function(responseProyek)
                                         {
-                                            var proyek = responseProyek.data;
+                                            var proyek = JSON.stringify(responseProyek.data);
+                                            // send. proyek data to owner board
                                             $.ajax({
                                                 url: "<?php echo base_url('contractor/owner_board'); ?>",
                                                 method : 'POST',
@@ -113,11 +118,14 @@
                                         }
                                     });
 
+                                    // expect. all kontraktor from kontraktor table
                                     $.ajax({
-                                        url: " ",
+                                        url: "<?php echo base_url('api/Users/kontraktorall'); ?>",
+                                        method : 'GET',
                                         success: function(responseKontraktor)
                                         {
-                                            var kontraktor = responseKontraktor.data;
+                                            var kontraktor = JSON.stringify(responseKontraktor.data);
+                                            // send. kontraktor data to owner board
                                             $.ajax({
                                                 url: "<?php echo base_url('contractor/owner_board'); ?>",
                                                 method : 'POST',
@@ -126,13 +134,15 @@
                                         }
                                     });
 
+                                    // send. owner id to pengawas table - expect. all pengawas related to owner id from pengawas table
                                     $.ajax({
-                                        url: " ",
+                                        url: "<?php echo base_url('api/Users/pengawas_byowner'); ?>",
                                         method : 'POST',
-                                        data : {id_owner : id},
+                                        data : {ownerID : id},
                                         success: function(responsePengawas)
                                         {
-                                            var pengawas = responsePengawas.data;
+                                            var pengawas = JSON.stringify(responsePengawas.data);
+                                            // send. pengawas data to owner board
                                             $.ajax({
                                                 url: "<?php echo base_url('contractor/owner_board'); ?>",
                                                 method : 'POST',
@@ -148,19 +158,22 @@
 
                         else if (role == 'kontraktor') 
                         {
+                            // send. data kontraktor to session function
                             $.ajax({
                             url: "<?php echo base_url('user_session/userIn'); ?>",
                             method : 'POST',
                             data : {user : user},
                             success: function()
                             {
+                                // send. kontraktor id to proyek table - expect. all proyek related to kontraktor id from proyek table
                                 $.ajax({
-                                    url: " ",
+                                    url: "<?php echo base_url('api/Proyek/proyek_bykontraktor'); ?>",
                                     method : 'POST',
-                                    data : {id_kontraktor : id},
+                                    data : {kontraktorID : id},
                                     success: function(responseProyek)
                                     {
-                                        var proyek = responseProyek.data;
+                                        var proyek = JSON.stringify(responseProyek.data);
+                                        // send. proyek data to kontraktor board
                                         $.ajax({
                                             url: "<?php echo base_url('contractor/kontraktor_board'); ?>",
                                             method : 'POST',
@@ -176,19 +189,23 @@
 
                         else if (role == 'pengawas')
                         {
+                            // send. data pengawas to session function
                             $.ajax({
                             url: "<?php echo base_url('user_session/userIn'); ?>",
                             method : 'POST',
                             data : {user : user},
                             success: function()
                             {
+                                // send. pengawas id to proyek table
+                                // expect. all proyek related to pengawas id from proyek table
                                 $.ajax({
-                                    url: " ",
+                                    url: "<?php echo base_url('api/Proyek/proyek_bypengawas'); ?>",
                                     method : 'POST',
-                                    data : {id_pengawas : id},
+                                    data : {pengawasID : id},
                                     success: function(responseProyek)
                                     {
-                                        var proyek = responseProyek.data;
+                                        var proyek = JSON.stringify(responseProyek.data);
+                                        // send. proyek data to pengawas board
                                         $.ajax({
                                             url: "<?php echo base_url('contractor/pengawas_board'); ?>",
                                             method : 'POST',
@@ -196,11 +213,14 @@
                                         });
                                     }
                                 });
+                                // expect. all kontraktor from kontraktor table
                                 $.ajax({
-                                    url: " ",
+                                    url: "<?php echo base_url('api/Users/kontraktorall'); ?>",
+                                    method : 'GET',
                                     success: function(responseKontraktor)
                                     {
-                                        var kontraktor = responseKontraktor.data;
+                                        var kontraktor = JSON.stringify(responseKontraktor.data);
+                                        // send. kontraktor data to pengawas board
                                         $.ajax({
                                             url: "<?php echo base_url('contractor/pengawas_board'); ?>",
                                             method : 'POST',
@@ -213,6 +233,10 @@
                             }
                             });
                         }
+                    }
+
+                    else {
+                        $('.alert').fadeIn();
                     }
                 },
                 error: function(){

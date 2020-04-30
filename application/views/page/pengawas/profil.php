@@ -9,12 +9,12 @@
                     <img src="https://www.sackettwaconia.com/wp-content/uploads/default-profile.png" width="100%">
                   <?php endif; ?>
                 <div class="container">
-                  <p class="lead mt-3 mb-0">Nama Owner</p>
+                  <p class="lead mt-3 mb-0">Nama pengawas</p>
                   <p class="text-muted">username</p>
                 </div>
               </div>
               <div>
-                <a type="button" class="btn btn-sm btn-info mt-2" href="<?php echo base_url('owner/profil/edit-profil'); ?>">Edit Profil</a>
+                <a type="button" class="btn btn-sm btn-info mt-2" href="<?php echo base_url('pengawas/profil/edit-profil'); ?>">Edit Profil</a>
               </div>
             </div>  
             <div class="col-md-7 pt-4">
