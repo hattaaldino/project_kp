@@ -8,7 +8,7 @@
             parent::__construct();
         }	
 
-        public function userIn(){
+        public function index(){
             if(isset($_POST['user'])){
                 $user = $_POST['user'];
                 $_SESSION['user'] = json_decode($user, true);

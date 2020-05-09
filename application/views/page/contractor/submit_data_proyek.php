@@ -107,7 +107,7 @@
             // update. status related to pekerjaan id's to 1
             // expect. all proyek from this kontraktor (use user id)
             $.ajax({
-                url : "<?php echo base_url('api/Proyek/proyek'); ?>",
+                url : "<?php echo base_url('api/Proyek/dokumentasi'); ?>",
                 method : 'POST',
                 data : data,
                 success : function(responseProyek){

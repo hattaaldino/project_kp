@@ -1190,7 +1190,7 @@ abstract class REST_Controller extends CI_Controller {
             ]);
 
         // Get the last insert id to update at a later stage of the request
-        $this->_insert_id = $this->rest->db->insertID();
+        $this->_insert_id = $this->rest->db->insert_id();
 
         return $is_inserted;
     }

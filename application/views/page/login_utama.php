@@ -15,7 +15,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="<?php echo base_url();?>assets/js/login.js"></script>
     
   </head>
   <body class="text-center">
@@ -78,9 +77,9 @@
                 success: function(response)
                 {
                     var responsejs = response.data[0];
-                    id = responsejs.id;
-                    nama = responsejs.nama;
-                    role = responsejs.role;
+                    var id = responsejs.id;
+                    var nama = responsejs.nama;
+                    var role = responsejs.role;
 
                     if(response.data.length <= 1){
                         unique_user = true
@@ -96,7 +95,7 @@
                         {
                             // send. data owner to session function
                             $.ajax({
-                                url: "<?php echo base_url('user_session/userIn'); ?>",
+                                url: "<?php echo base_url('user_session'); ?>",
                                 method : 'POST',
                                 data : {user : user},
                                 success: function()
@@ -160,7 +159,7 @@
                         {
                             // send. data kontraktor to session function
                             $.ajax({
-                            url: "<?php echo base_url('user_session/userIn'); ?>",
+                            url: "<?php echo base_url('user_session'); ?>",
                             method : 'POST',
                             data : {user : user},
                             success: function()
@@ -191,7 +190,7 @@
                         {
                             // send. data pengawas to session function
                             $.ajax({
-                            url: "<?php echo base_url('user_session/userIn'); ?>",
+                            url: "<?php echo base_url('user_session'); ?>",
                             method : 'POST',
                             data : {user : user},
                             success: function()

@@ -25,12 +25,15 @@ class contractor extends CI_Controller {
 
 	public function index()
 	{
+		if(session_status() == PHP_SESSION_ACTIVE){
+			session_destroy();
+		}
 		$this->load->view('page/login_utama');
 	}
 
 	public function logout()
 	{
-		session_unset($_SESSION['user']);
+		session_destroy();
 		$this->index();
 	}
 

@@ -165,7 +165,7 @@
               // expect. all pengawas related owner id from pengawas table
               // error. when sent username already exist in user table
               $.ajax({
-                  url: " ",
+                  url: "<?php echo base_url('api/SignUp'); ?>",
                   method: 'POST',
                   data: form_data,
                   processData: false,

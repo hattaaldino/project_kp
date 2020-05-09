@@ -8,9 +8,9 @@ class pekerjaan_model extends CI_Model{
 
     public function get_pekerjaan(){
         $data = $this->db->get('pekerjaan')->result_array();
-        foreach($data as $pekerjaan) {
-            $pekerjaan['id'] = $pekerjaan['pekerjaanID'];
-            unset($pekerjaan['pekerjaanID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['pekerjaanID'];
+            unset($data[$i]['pekerjaanID']);
         }
 
         return $data;
@@ -18,9 +18,9 @@ class pekerjaan_model extends CI_Model{
 
     public function get_pekerjaan_byid($id){
         $data = $this->db->get_where('pekerjaan', ['pekerjaanID' => $id])->result_array();
-        foreach($data as $pekerjaan) {
-            $pekerjaan['id'] = $pekerjaan['pekerjaanID'];
-            unset($pekerjaan['pekerjaanID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['pekerjaanID'];
+            unset($data[$i]['pekerjaanID']);
         }
 
         return $data;
@@ -28,9 +28,9 @@ class pekerjaan_model extends CI_Model{
 
     public function get_pekerjaan_byproyek($id_proyek){
         $data = $this->db->get_where('pekerjaan', ['proyekID' => $id_proyek])->result_array();
-        foreach($data as $pekerjaan) {
-            $pekerjaan['id'] = $pekerjaan['pekerjaanID'];
-            unset($pekerjaan['pekerjaanID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['pekerjaanID'];
+            unset($data[$i]['pekerjaanID']);
         }
 
         return $data;

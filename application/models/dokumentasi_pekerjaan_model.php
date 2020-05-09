@@ -9,9 +9,9 @@ class dokumentasi_pekerjaan_model extends CI_Model{
 
     public function get_dokumentasi(){
         $data = $this->db->get('dokumentasipekerjaan')->result_array();
-        foreach($data as $dokumentasi) {
-            $dokumentasi['id'] = $dokumentasi['dokumentasiID'];
-            unset($dokumentasi['dokumentasiID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['dokumentasiID'];
+            unset($data[$i]['dokumentasiID']);
         }
 
         return $data;
@@ -19,9 +19,9 @@ class dokumentasi_pekerjaan_model extends CI_Model{
 
     public function get_dokumentasi_byid($id){
         $data = $this->db->get_where('dokumentasipekerjaan', ['dokumentasiID' => $id])->result_array();
-        foreach($data as $dokumentasi) {
-            $dokumentasi['id'] = $dokumentasi['dokumentasiID'];
-            unset($dokumentasi['dokumentasiID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['dokumentasiID'];
+            unset($data[$i]['dokumentasiID']);
         }
 
         return $data;
@@ -29,9 +29,9 @@ class dokumentasi_pekerjaan_model extends CI_Model{
 
     public function get_dokumentasi_bypekerjaan($id_pekerjaan){
         $data = $this->db->get_where('dokumentasipekerjaan', ['pekerjaanID' => $id_pekerjaan])->result_array();
-        foreach($data as $dokumentasi) {
-            $dokumentasi['id'] = $dokumentasi['dokumentasiID'];
-            unset($dokumentasi['dokumentasiID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['dokumentasiID'];
+            unset($data[$i]['dokumentasiID']);
         }
 
         return $data;

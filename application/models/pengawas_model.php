@@ -8,39 +8,38 @@ class pengawas_model extends CI_Model{
 
     public function get_pengawas(){
         $data = $this->db->get('pengawas')->result_array();
-        foreach($data as $pengawas) {
-            $pengawas['id'] = $pengawas['pengawasID'];
-            unset($pengawas['pengawasID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['pengawasID'];
+            unset($data[$i]['pengawasID']);
         }
 
         return $data;
       }
     
     public function get_pengawas_byowner($ownerID){
-        $data = $this->db->get_where('pengawas', [ 'ownerID' => $ownerID])->result_array();
-        foreach($data as $pengawas) {
-            $pengawas['id'] = $pengawas['pengawasID'];
-            unset($pengawas['pengawasID']);
+        $data = $this->db->get_where('pengawas', ['ownerID' => $ownerID])->result_array();
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['pengawasID'];
+            unset($data[$i]['pengawasID']);
         }
-
         return $data;
     }
 
     public function get_pengawas_byid($id){
-        $data = $this->db->get_where('pengawas', [ 'pengawasID' => $id])->row_array();
-        foreach($data as $pengawas) {
-            $pengawas['id'] = $pengawas['pengawasID'];
-            unset($pengawas['pengawasID']);
+        $data = $this->db->get_where('pengawas', [ 'pengawasID' => $id])->result_array();
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['pengawasID'];
+            unset($data[$i]['pengawasID']);
         }
 
         return $data;
     }
 
     public function get_pengawas_byUname($username){
-        $data = $this->db->get_where('pengawas', [ 'username' => $username])->row_array();
-        foreach($data as $pengawas) {
-            $pengawas['id'] = $pengawas['pengawasID'];
-            unset($pengawas['pengawasID']);
+        $data = $this->db->get_where('pengawas', [ 'username' => $username])->result_array();
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['pengawasID'];
+            unset($data[$i]['pengawasID']);
         }
 
         return $data;

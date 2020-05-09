@@ -6,10 +6,9 @@ class user_model extends CI_Model{
         return $this->db->get('user')->result_array();
     }
 
-    public function get_login($username, $password){
+    public function get_login($username){
         $data = [
-            'username' => $username,
-            'password' => md5($password)
+            'username' => $username
         ];
         return $this->db->get_where('user', $data)->result_array();
     }

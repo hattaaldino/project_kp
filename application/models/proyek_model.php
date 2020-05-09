@@ -8,9 +8,9 @@ class proyek_model extends CI_Model{
 
     public function get_proyek(){
         $data = $this->db->get('proyek')->result_array();
-        foreach($data as $proyek) {
-            $proyek['id'] = $proyek['proyekID'];
-            unset($proyek['proyekID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['proyekID'];
+            unset($data[$i]['proyekID']);
         }
 
         return $data;
@@ -18,9 +18,9 @@ class proyek_model extends CI_Model{
 
     public function get_proyek_byid($id_proyek){
         $data = $this->db->get_where('proyek', ['proyekID' => $ownerID])->result_array();
-        foreach($data as $proyek) {
-            $proyek['id'] = $proyek['proyekID'];
-            unset($proyek['proyekID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['proyekID'];
+            unset($data[$i]['proyekID']);
         }
 
         return $data;
@@ -28,9 +28,9 @@ class proyek_model extends CI_Model{
 
     public function get_proyek_byowner($ownerID){
         $data = $this->db->get_where('proyek', ['ownerID' => $ownerID])->result_array();
-        foreach($data as $proyek) {
-            $proyek['id'] = $proyek['proyekID'];
-            unset($proyek['proyekID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['proyekID'];
+            unset($data[$i]['proyekID']);
         }
 
         return $data;
@@ -38,9 +38,9 @@ class proyek_model extends CI_Model{
 
     public function get_proyek_bypengawas($pengawasID){
        $data = $this->db->get_where('proyek', ['pengawasID' => $pengawasID])->result_array();
-       foreach($data as $proyek) {
-            $proyek['id'] = $proyek['proyekID'];
-            unset($proyek['proyekID']);
+       for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['proyekID'];
+            unset($data[$i]['proyekID']);
         }
 
         return $data;
@@ -48,9 +48,9 @@ class proyek_model extends CI_Model{
 
     public function get_proyek_bykontraktor($kontraktorID){
         $data = $this->db->get_where('proyek', ['kontraktorID' => $kontraktorID])->result_array();
-        foreach($data as $proyek) {
-            $proyek['id'] = $proyek['proyekID'];
-            unset($proyek['proyekID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['proyekID'];
+            unset($data[$i]['proyekID']);
         }
 
         return $data;

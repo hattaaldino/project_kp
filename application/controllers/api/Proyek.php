@@ -32,7 +32,7 @@
 
       $this->proyek_model->insert_proyek($proyek);
       $kontraktor = $this->getKontraktor($this->post('kontraktorID'));
-      $proyek_id = $this->$db->insertID();
+      $proyek_id = $this->db->insert_id();
 
       if($proyek_id){
         $proyek['id'] = $proyek_id;
@@ -80,10 +80,10 @@
     public function proyek_post(){
       $id_proyek = $this->post('id');
       $fullproyek = $this->proyek_model->get_proyek_byid($id_proyek);
-      foreach($fullproyek as $proyek){
-        $proyek['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($proyek['id']);
-        foreach($proyek['pekerjaan'] as $pekerjaan){
-          $pekerjaan['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($pekerjaan['id']);
+      for($i = 0; $i < count($fullproyek); $i++){
+        $fullproyek[$i]['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($fullproyek[$i]['id']);
+        for($j = 0; $j < count($fullproyek[$i]['pekerjaan']); $j++){
+          $fullproyek[$i]['pekerjaan'][$j]['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($fullproyek[$i]['pekerjaan'][$j]['id']);
         }
       }
 
@@ -141,10 +141,10 @@
     public function proyek_byowner_post(){
       $ownerID = $this->post('ownerID');
       $fullproyek = $this->proyek_model->get_proyek_byowner($ownerID);
-      foreach($fullproyek as $proyek){
-        $proyek['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($proyek['id']);
-        foreach($proyek['pekerjaan'] as $pekerjaan){
-          $pekerjaan['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($pekerjaan['id']);
+      for($i = 0; $i < count($fullproyek); $i++){
+        $fullproyek[$i]['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($fullproyek[$i]['id']);
+        for($j = 0; $j < count($fullproyek[$i]['pekerjaan']); $j++){
+          $fullproyek[$i]['pekerjaan'][$j]['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($fullproyek[$i]['pekerjaan'][$j]['id']);
         }
       }
 
@@ -164,10 +164,10 @@
     public function proyek_bykontraktor_post(){
       $kontraktorID = $this->post('kontraktorID');
       $fullproyek = $this->proyek_model->get_proyek_bykontraktor($kontraktorID);
-      foreach($fullproyek as $proyek){
-        $proyek['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($proyek['id']);
-        foreach($proyek['pekerjaan'] as $pekerjaan){
-          $pekerjaan['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($pekerjaan['id']);
+      for($i = 0; $i < count($fullproyek); $i++){
+        $fullproyek[$i]['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($fullproyek[$i]['id']);
+        for($j = 0; $j < count($fullproyek[$i]['pekerjaan']); $j++){
+          $fullproyek[$i]['pekerjaan'][$j]['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($fullproyek[$i]['pekerjaan'][$j]['id']);
         }
       }
 
@@ -187,10 +187,10 @@
     public function proyek_bypengawas_post(){
       $pengawasID = $this->post('pengawasID');
       $fullproyek = $this->proyek_model->get_proyek_bypengawas($pengawasID);
-      foreach($fullproyek as $proyek){
-        $proyek['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($proyek['id']);
-        foreach($proyek['pekerjaan'] as $pekerjaan){
-          $pekerjaan['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($pekerjaan['id']);
+      for($i = 0; $i < count($fullproyek); $i++){
+        $fullproyek[$i]['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($fullproyek[$i]['id']);
+        for($j = 0; $j < count($fullproyek[$i]['pekerjaan']); $j++){
+          $fullproyek[$i]['pekerjaan'][$j]['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($fullproyek[$i]['pekerjaan'][$j]['id']);
         }
       }
 
@@ -237,10 +237,10 @@
       $role = $_SESSION['user']['role'];
       if($role == 'kontraktor') {
         $fullproyek = $this->proyek_model->get_proyek_bykontraktor($_SESSION['user']['id']);
-        foreach($fullproyek as $proyek){
-          $proyek['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($proyek['id']);
-          foreach($proyek['pekerjaan'] as $pekerjaan){
-            $pekerjaan['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($pekerjaan['id']);
+        for($i = 0; $i < count($fullproyek); $i++){
+          $fullproyek[$i]['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($fullproyek[$i]['id']);
+          for($j = 0; $j < count($fullproyek[$i]['pekerjaan']); $j++){
+            $fullproyek[$i]['pekerjaan'][$j]['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($fullproyek[$i]['pekerjaan'][$j]['id']);
           }
         }
 
@@ -257,10 +257,10 @@
         }
       } elseif($role == 'pengawas'){
         $fullproyek = $this->proyek_model->get_proyek_bypengawas($_SESSION['user']['id']);
-        foreach($fullproyek as $proyek){
-          $proyek['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($proyek['id']);
-          foreach($proyek['pekerjaan'] as $pekerjaan){
-            $pekerjaan['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($pekerjaan['id']);
+        for($i = 0; $i < count($fullproyek); $i++){
+          $fullproyek[$i]['pekerjaan'] = $this->pekerjaan_model->get_pekerjaan_byproyek($fullproyek[$i]['id']);
+          for($j = 0; $j < count($fullproyek[$i]['pekerjaan']); $j++){
+            $fullproyek[$i]['pekerjaan'][$j]['dokumentasi'] = $this->dokumentasi_pekerjaan_model->get_dokumentasi_bypekerjaan($fullproyek[$i]['pekerjaan'][$j]['id']);
           }
         }
 

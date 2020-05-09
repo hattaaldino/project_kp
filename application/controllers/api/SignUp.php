@@ -45,7 +45,7 @@ class SignUp extends REST_Controller{
                 );
 
                 $this->owner_model->insert_owner($owner);
-                $ownerID = $this->$db->insertID();
+                $ownerID = $this->db->insert_id();
                 $owner['password'] = $password;
                 $owner['id'] = $ownerID;
 
@@ -65,7 +65,7 @@ class SignUp extends REST_Controller{
                 );
 
                 $this->kontraktor_model->insert_kontraktor($kontraktor);
-                $kontraktorID = $this->$db->insertID();
+                $kontraktorID = $this->db->insert_id();
                 $kontraktor['password'] = $password;
                 $kontraktor['id'] = $kontraktorID;
 

@@ -212,7 +212,7 @@
 
             // send. userBaru to session function
             $.ajax({
-              url: "<?php echo base_url('user_session/userIn'); ?>",
+              url: "<?php echo base_url('user_session'); ?>",
               method : 'POST',
               data : {user : userBaru}
             });

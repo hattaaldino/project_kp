@@ -11,7 +11,7 @@
       <div class="modal-body">Tekan tombol logout dibawah untuk keluar dan anda akan dibawa ke laman login kembali.</div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button id="logoutButton" class="btn btn-primary">Logout</button>
+        <button class="btn btn-primary logoutButton">Logout</button>
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@
       <div class="modal-body">Upss terjadi masalah pada halaman ini.. coba untuk logout kemudian login kembali :)</div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button id="logoutButton" class="btn btn-primary">Logout</button>
+        <button class="btn btn-primary logoutButton">Logout</button>
       </div>
     </div>
   </div>

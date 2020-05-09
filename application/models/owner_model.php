@@ -8,29 +8,29 @@ class owner_model extends CI_Model{
 
     public function get_owner(){
         $data = $this->db->get('owner')->result_array();
-        foreach($data as $owner) {
-            $owner['id'] = $owner['ownerID'];
-            unset($owner['ownerID']);
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['ownerID'];
+            unset($data[$i]['ownerID']);
         }
 
         return $data;
     }
 
     public function get_owner_byUname($username){
-        $data =  $this->db->get_where('owner', [ 'username' => $username])->row_array();
-        foreach($data as $owner) {
-            $owner['id'] = $owner['ownerID'];
-            unset($owner['ownerID']);
+        $data =  $this->db->get_where('owner', [ 'username' => $username])->result_array();
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['ownerID'];
+            unset($data[$i]['ownerID']);
         }
 
         return $data;
     }
 
     public function get_owner_byid($id){
-        $data =  $this->db->get_where('owner', [ 'ownerID' => $id])->row_array();
-        foreach($data as $owner) {
-            $owner['id'] = $owner['ownerID'];
-            unset($owner['ownerID']);
+        $data =  $this->db->get_where('owner', [ 'ownerID' => $id])->result_array();
+        for($i = 0; $i < count($data); $i++ ) {
+            $data[$i]['id'] = $data[$i]['ownerID'];
+            unset($data[$i]['ownerID']);
         }
 
         return $data;
