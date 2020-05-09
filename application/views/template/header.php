@@ -54,7 +54,7 @@ $user = $_SESSION['user'];
         <li class="nav-item text-nowrap">
         <span class="lead">Hello </span>
         <span id="namaHeader" class="lead" style="margin-right:10px;"></span>
-        <img role="button" title="Logout Button" src="https://pngimage.net/wp-content/uploads/2018/06/logout-png-image-1.png" height="30" width="30" data-toggle="modal" data-target="#logoutModal" style="margin-bottom: 3px;"></img>
+        <img role="button" title="Logout Button" src="https://pngimage.net/wp-content/uploads/2018/06/logout-png-image-1.png" height="30" width="30" data-toggle="modal" data-target="#logoutModal" style="margin-bottom: 3px;">
         </li>
       </ul>
     </nav>  
