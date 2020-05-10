@@ -63,9 +63,9 @@ class contractor extends CI_Controller {
 	public function owner_board()
 	{
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = json_decode($_POST['proyek'], true);
-			$data['pengawas'] = json_decode($_POST['pengawas'], true);
-			$data['kontraktor'] = json_decode($_POST['kontraktor'], true);
+			$data['proyek'] = json_decode($this->input->post('proyek'), true);
+			$data['pengawas'] = json_decode($this->input->post('pengawas'), true);
+			$data['kontraktor'] = json_decode($this->input->post('kontraktor'), true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -79,7 +79,7 @@ class contractor extends CI_Controller {
 	public function owner_monitoring()
 	{	
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = json_decode($_POST['proyek'], true);
+			$data['proyek'] = json_decode($this->input->post('proyek'), true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -121,7 +121,7 @@ class contractor extends CI_Controller {
 	public function owner_edit_pengawas()
 	{
 		if(isset($_SESSION['user'])){
-			$data['pengawas'] = json_decode($_POST['pengawas'], true);
+			$data['pengawas'] = json_decode($this->input->post('pengawas'), true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -135,9 +135,9 @@ class contractor extends CI_Controller {
 	public function owner_edit_proyek()
 	{
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = json_decode($_POST['proyek'], true);
-			$data['pengawas'] = json_decode($_POST['pengawas'], true);
-			$data['kontraktor'] = json_decode($_POST['kontraktor'], true);
+			$data['proyek'] = json_decode($this->input->post('proyek'), true);
+			$data['pengawas'] = json_decode($this->input->post('pengawas'), true);
+			$data['kontraktor'] = json_decode($this->input->post('kontraktor'), true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -151,7 +151,7 @@ class contractor extends CI_Controller {
 	public function kontraktor_board()
 	{
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = json_decode($_POST['proyek'], true);
+			$data['proyek'] = json_decode($this->input->post('proyek'), true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -193,7 +193,7 @@ class contractor extends CI_Controller {
 	public function kontraktor_data_proyek()
 	{
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = json_decode($_POST['proyek'], true);
+			$data['proyek'] = json_decode($this->input->post('proyek'), true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -207,7 +207,7 @@ class contractor extends CI_Controller {
 	public function kontraktor_submit_proyek()
 	{
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = json_decode($_POST['proyek'], true);
+			$data['proyek'] = json_decode($this->input->post('proyek'), true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -221,8 +221,8 @@ class contractor extends CI_Controller {
 	public function pengawas_board()
 	{
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = json_decode($_POST['proyek'], true);
-			$data['kontraktor'] = json_decode($_POST['kontraktor'], true);
+			$data['proyek'] = json_decode($this->input->post('proyek'), true);
+			$data['kontraktor'] = json_decode($this->input->post('kontraktor'), true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');
@@ -264,7 +264,7 @@ class contractor extends CI_Controller {
 	public function pengawas_lihat_laporan()
 	{
 		if(isset($_SESSION['user'])){
-			$data['proyek'] = json_decode($_POST['proyek'], true);
+			$data['proyek'] = json_decode($this->input->post('proyek'), true);
 			$this->load->view('template/header');
 			$this->load->view('template/sidebar');
 			$this->load->view('template/popup_form');

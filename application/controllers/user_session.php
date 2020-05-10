@@ -8,8 +8,8 @@
         }	
 
         public function index(){
-            if(isset($_POST['user'])){
-                $user = $_POST['user'];
+            if($this->input->post('user')){
+                $user = $this->input->post('user');
                 $_SESSION['user'] = json_decode($user, true);
             }
         }

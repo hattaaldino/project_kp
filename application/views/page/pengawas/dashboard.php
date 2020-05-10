@@ -1,8 +1,3 @@
-<script>
-  <?php if(!isset($proyek) && !isset($kontraktor)): ?>
-    $('#errorPageDialog').modal('show');
-  <?php endif; ?>
-</script>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="content">
         <h1 id="judulproyek" class="h3 pb-2 mb-3 border-bottom">Data Proyek</h1>

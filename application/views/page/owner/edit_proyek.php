@@ -1,6 +1,6 @@
 <script>
     var proyek;
-    <?php if(isset($proyek) && isset($pengawas) && isset($kontraktor)): ?>
+    <?php if(isset($proyek)): ?>
         proyek = JSON.parse('<?php echo json_encode($proyek); ?>');
     <?php else: ?>
         $('#errorPageDialog').modal('show');
