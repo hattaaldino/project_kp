@@ -28,6 +28,8 @@ class contractor extends CI_Controller {
 		if(session_status() == PHP_SESSION_ACTIVE){
 			session_destroy();
 		}
+
+		$this->load->view('template/login_header');
 		$this->load->view('page/login_utama');
 	}
 
@@ -35,6 +37,13 @@ class contractor extends CI_Controller {
 	{
 		session_destroy();
 		$this->index();
+	}
+
+	public function relogin()
+	{
+		$this->load->view('template/login_header');
+		$this->load->view('template/login_alert');
+		$this->load->view('page/login_utama');
 	}
 
 	public function regis_owner()
@@ -56,7 +65,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/pengawas/register_akun_pengawas');
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -72,7 +81,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');	
 			$this->load->view('page/owner/dashboard', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -86,7 +95,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/owner/proyek_monitoring', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -100,7 +109,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/owner/profil', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -114,7 +123,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/owner/edit_profil', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -128,7 +137,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/owner/edit_pengawas', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -144,7 +153,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/owner/edit_proyek', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 	
@@ -158,7 +167,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/contractor/dashboard', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -172,7 +181,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/contractor/profil', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -186,7 +195,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/contractor/edit_profil', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -200,7 +209,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/contractor/data_proyek', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -214,7 +223,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/contractor/submit_data_proyek',$data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -229,7 +238,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/pengawas/dashboard', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -243,7 +252,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/pengawas/profil', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -257,7 +266,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/pengawas/edit_profil', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
@@ -271,7 +280,7 @@ class contractor extends CI_Controller {
 			$this->load->view('template/breadcrumbs');
 			$this->load->view('page/pengawas/laporan_proyek', $data);
 		} else {
-			$this->index();
+			$this->relogin();
 		}
 	}
 
